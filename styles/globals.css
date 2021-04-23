@@ -14,3 +14,16 @@ a {
 * {
   box-sizing: border-box;
 }
+
+main {
+  width: 100vw;
+
+  max-width: 480px;
+}
+
+svg.fa-user, svg.fa-envelope {
+  width: 20px;
+  position: relative;
+  top: 8px;
+  margin-right: 8px;
+}

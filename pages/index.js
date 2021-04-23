@@ -1,65 +1,170 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+
+import React from "react";
+
+import styles from "../styles/Home.module.css";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+
+import { AccountCircle, Mail, PhoneAndroid } from "@material-ui/icons";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: "rgba(0, 214, 123, 0.5)",
+      main: "rgba(0, 214, 123, 0.9)",
+      dark: "rgb(0, 214, 123, 1)",
+      contrastText: "#ffffff",
+    },
+    secondary: {
+      light: "#ff7961",
+      main: "#f44336",
+      dark: "#ba000d",
+      contrastText: "#000",
+    },
+  },
+});
+
+import {
+  FormControl,
+  InputLabel,
+  FilledInput,
+  TextField,
+  InputAdornment,
+  Button,
+} from "@material-ui/core";
+
+import User from "../components/user";
+import Envelope from "../components/email";
 
 export default function Home() {
+  const userIconRef = React.createRef();
+  const envelopeIconRef = React.createRef();
+  const phoneIconRef = React.createRef();
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title> Taygo Assignment </title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+          rel="stylesheet"
+          rel="stylesheet"
+        />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <div className={styles.poster}>
+        <Image src="/poster_bg.svg" className={styles.image} layout="fill" />
+        <Image src="/logo-white.png" width={220} height={54} />
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+        <p className={styles.mortgageShoppingEx}>
+          Mortgage Shopping Experinece Customized For You
         </p>
+        <div className={styles.rectangleSlim}></div>
+      </div>
+      <div className={styles.form}>
+        <div className={styles.formContent}>
+          <Image width={178} height={42} src="/logo_green.png" />
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <div className={styles.title}>Sign up to TAYGO</div>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+          <ThemeProvider theme={theme}>
+            <form className={styles.formGroup}>
+              <TextField
+                placeholder="John"
+                label="Full Name"
+                className={styles.textField}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle ref={userIconRef} />
+                    </InputAdornment>
+                  ),
+                }}
+                onFocus={() => {
+                  userIconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
+                }}
+                onBlur={() => {
+                  userIconRef.current.style.color = "#ddd";
+                }}
+              />
+              <TextField
+                placeholder="example@site.com"
+                label="Email"
+                className={styles.textField}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Mail ref={envelopeIconRef} />
+                    </InputAdornment>
+                  ),
+                }}
+                onFocus={() => {
+                  envelopeIconRef.current.style.color =
+                    "rgba(0, 214, 123, 0.9)";
+                }}
+                onBlur={() => {
+                  envelopeIconRef.current.style.color = "#ddd";
+                }}
+              />
+              <TextField
+                placeholder="888-888-888"
+                label="Mobile Number"
+                className={styles.textField}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PhoneAndroid ref={phoneIconRef} />
+                    </InputAdornment>
+                  ),
+                }}
+                onFocus={() => {
+                  phoneIconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
+                }}
+                onBlur={() => {
+                  phoneIconRef.current.style.color = "#ddd";
+                }}
+              />
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+              <Button
+                variant="contained"
+                color="primary"
+                className={styles.buttonFont}
+              >
+                Start with TAYGO
+              </Button>
+            </form>
+          </ThemeProvider>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <p className={styles.byClickingTheButt}>
+            By clicking the button, I agree to the{" "}
+            <Link href="/#">
+              <a rel="noopener noreferrer" className={styles.anchor}>
+                Terms of Services
+              </a>
+            </Link>
+            and
+            <Link href="/#">
+              <a rel="noopener noreferrer" className={styles.anchor}>
+                Privacy Policy
+              </a>
+            </Link>
+          </p>
+
+          <div className={styles.alreadyAMemberSi}>
+            Already a member?{" "}
+            <Link href="/#">
+              <a rel="noopener noreferrer" className={styles.anchor}>
+                Sign in
+              </a>
+            </Link>
+          </div>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      </div>
     </div>
-  )
+  );
 }
