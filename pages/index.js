@@ -36,8 +36,7 @@ import {
   Button,
 } from "@material-ui/core";
 
-import User from "../components/user";
-import Envelope from "../components/email";
+import FormInput from "../components/FormInput";
 
 export default function Home() {
   const userIconRef = React.createRef();
@@ -74,60 +73,22 @@ export default function Home() {
 
           <ThemeProvider theme={theme}>
             <form className={styles.formGroup}>
-              <TextField
+              <FormInput
+                icon={AccountCircle}
+                name="full name"
                 placeholder="John"
-                label="Full Name"
-                className={styles.textField}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <AccountCircle ref={userIconRef} />
-                    </InputAdornment>
-                  ),
-                }}
-                onFocus={() => {
-                  userIconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
-                }}
-                onBlur={() => {
-                  userIconRef.current.style.color = "#ddd";
-                }}
               />
-              <TextField
+
+              <FormInput
+                icon={Mail}
+                name="Email"
                 placeholder="example@site.com"
-                label="Email"
-                className={styles.textField}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Mail ref={envelopeIconRef} />
-                    </InputAdornment>
-                  ),
-                }}
-                onFocus={() => {
-                  envelopeIconRef.current.style.color =
-                    "rgba(0, 214, 123, 0.9)";
-                }}
-                onBlur={() => {
-                  envelopeIconRef.current.style.color = "#ddd";
-                }}
               />
-              <TextField
+
+              <FormInput
+                icon={PhoneAndroid}
+                name="mobile number"
                 placeholder="888-888-888"
-                label="Mobile Number"
-                className={styles.textField}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <PhoneAndroid ref={phoneIconRef} />
-                    </InputAdornment>
-                  ),
-                }}
-                onFocus={() => {
-                  phoneIconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
-                }}
-                onBlur={() => {
-                  phoneIconRef.current.style.color = "#ddd";
-                }}
               />
 
               <Button

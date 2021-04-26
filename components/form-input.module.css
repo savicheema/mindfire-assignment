@@ -1,0 +1,13 @@
+.label {
+  text-transform: capitalize;
+}
+
+.formInput {
+  margin: 12px 0 !important;
+  width: 80vw;
+  max-width: 380px;
+}
+
+.root {
+  width: 100%;
+}
