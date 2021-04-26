@@ -65,8 +65,9 @@ class FormInput extends React.Component {
 
   onBlur = () => {
     const { inputValue } = this.state;
+    const { regex } = this.props;
 
-    if (inputValue) {
+    if (inputValue && regex.test(inputValue)) {
       this.setState({ isError: false }, () => {
         this.iconRef.current.style.color = "#ddd";
       });
@@ -89,7 +90,12 @@ class FormInput extends React.Component {
         break;
       }
       default: {
-        helperText = "Some error occured!";
+        const { name, regex } = this.props;
+
+        if (!regex.test(inputValue)) {
+          helperText = `${name} is not valid`;
+          return helperText;
+        }
       }
     }
 

@@ -77,18 +77,21 @@ export default function Home() {
                 icon={AccountCircle}
                 name="full name"
                 placeholder="John"
+                regex={/^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/}
               />
 
               <FormInput
                 icon={Mail}
                 name="Email"
                 placeholder="example@site.com"
+                regex={/(.+)@(.+){2,}\.(.+){2,}/}
               />
 
               <FormInput
                 icon={PhoneAndroid}
                 name="mobile number"
                 placeholder="888-888-888"
+                regex={/^[0-9-+\s]+$/}
               />
 
               <Button
