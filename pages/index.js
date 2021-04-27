@@ -2,13 +2,15 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "../styles/Home.module.css";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 
-import { AccountCircle, Mail, PhoneAndroid } from "@material-ui/icons";
+import { ThumbUp } from "@material-ui/icons";
+
+import SignUpForm from "../components/SignUpForm";
 
 const theme = createMuiTheme({
   palette: {
@@ -27,22 +29,13 @@ const theme = createMuiTheme({
   },
 });
 
-import {
-  FormControl,
-  InputLabel,
-  FilledInput,
-  TextField,
-  InputAdornment,
-  Button,
-} from "@material-ui/core";
-
-import FormInput from "../components/FormInput";
-
 export default function Home() {
-  const userIconRef = React.createRef();
-  const envelopeIconRef = React.createRef();
-  const phoneIconRef = React.createRef();
+  let signUpFormRef = React.createRef();
+  let [isAllValid, setValid] = useState(false);
 
+  const validate = (isValid) => {
+    setValid(isValid);
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -69,39 +62,19 @@ export default function Home() {
         <div className={styles.formContent}>
           <Image width={178} height={42} src="/logo_green.png" />
 
-          <div className={styles.title}>Sign up to TAYGO</div>
-
           <ThemeProvider theme={theme}>
-            <form className={styles.formGroup}>
-              <FormInput
-                icon={AccountCircle}
-                name="full name"
-                placeholder="John"
-                regex={/^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/}
-              />
-
-              <FormInput
-                icon={Mail}
-                name="Email"
-                placeholder="example@site.com"
-                regex={/(.+)@(.+){2,}\.(.+){2,}/}
-              />
-
-              <FormInput
-                icon={PhoneAndroid}
-                name="mobile number"
-                placeholder="888-888-888"
-                regex={/^[0-9-+\s]+$/}
-              />
-
-              <Button
-                variant="contained"
-                color="primary"
-                className={styles.buttonFont}
-              >
-                Start with TAYGO
-              </Button>
-            </form>
+            {isAllValid ? (
+              <div className={styles.successContainer}>
+                <ThumbUp
+                  color="primary"
+                  fontSize="large"
+                  classes={{ root: styles.rootLargeIcon }}
+                />
+                <div className={styles.successLabel}>Success!</div>
+              </div>
+            ) : (
+              <SignUpForm ref={signUpFormRef} validate={validate} />
+            )}
           </ThemeProvider>
 
           <p className={styles.byClickingTheButt}>

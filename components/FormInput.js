@@ -64,18 +64,25 @@ class FormInput extends React.Component {
   };
 
   onBlur = () => {
-    const { inputValue } = this.state;
-    const { regex } = this.props;
+    this.iconRef.current.style.color = "#ddd";
+  };
 
-    if (inputValue && regex.test(inputValue)) {
-      this.setState({ isError: false }, () => {
-        this.iconRef.current.style.color = "#ddd";
+  validate = () => {
+    return new Promise((resolve) => {
+      const { inputValue } = this.state;
+      const { regex } = this.props;
+
+      if (inputValue && regex.test(inputValue)) {
+        this.setState({ isError: false });
+        resolve(true);
+        return;
+      }
+
+      this.setState({ isError: true }, () => {
+        resolve(false);
+        this.iconRef.current.style.color = "red";
       });
-      return;
-    }
-
-    this.setState({ isError: true });
-    this.iconRef.current.style.color = "red";
+    });
   };
 
   getHelperText = () => {

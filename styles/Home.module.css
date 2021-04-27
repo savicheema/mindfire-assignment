@@ -5,6 +5,22 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.successLabel {
+  font-size: 24px;
+}
+
+.rootLargeIcon {
+  margin: 24px 0;
+}
+
 .form {
   flex: 1;
 
@@ -20,37 +36,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  /* align-items: center; */
-  margin-top: 24px;
-  margin-bottom: 36px;
-
-  width: 80vw;
-  max-width: 380px;
-}
-
-.buttonFont {
-  margin-top: 40px !important;
-  text-transform: none !important;
-}
-
-.title {
-  margin-top: 40px;
-  height: 29px;
-  width: 290px;
-  color: #1a2233;
-  font-family: Montserrat;
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.44px;
-  line-height: 29px;
-  text-align: center;
 }
 
 .byClickingTheButt {
