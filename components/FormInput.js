@@ -53,7 +53,7 @@ class FormInput extends React.Component {
       this.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
     }
 
-    this.setState({ inputValue: e.target.value });
+    this.setState({ inputValue: e.target.value }, this.onBlur);
   };
 
   onFocus = () => {
