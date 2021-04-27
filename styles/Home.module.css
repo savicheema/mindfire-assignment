@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0;
   display: flex;
   font-family: "Montserrat", sans-serif;
 }
@@ -128,7 +128,7 @@
   background-color: #ffffff;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .container {
     flex-direction: column-reverse;
     justify-content: center;
