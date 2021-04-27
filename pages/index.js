@@ -10,7 +10,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 import { ThumbUp } from "@material-ui/icons";
 
-import SignUpForm from "../components/SignUpForm";
+import SignUpForm from "../components/SignupForm";
 
 const theme = createMuiTheme({
   palette: {
