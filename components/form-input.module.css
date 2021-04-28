@@ -11,3 +11,11 @@
 .root {
   width: 100%;
 }
+
+.focusIcon {
+  color: rgba(0, 214, 123, 0.9);
+}
+
+.errorIcon {
+  color: red;
+}

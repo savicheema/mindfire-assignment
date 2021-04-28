@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 import styles from "../styles/Home.module.css";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 
 import { ThumbUp } from "@material-ui/icons";
 
@@ -19,6 +19,7 @@ const theme = createMuiTheme({
       main: "rgba(0, 214, 123, 0.9)",
       dark: "rgb(0, 214, 123, 1)",
       contrastText: "#ffffff",
+      
     },
     secondary: {
       light: "#ff7961",
@@ -27,15 +28,18 @@ const theme = createMuiTheme({
       contrastText: "#000",
     },
   },
+  
 });
 
+
 export default function Home() {
-  let signUpFormRef = React.createRef();
   let [isAllValid, setValid] = useState(false);
 
-  const validate = (isValid) => {
+  const validate = (isValid: boolean) => {
     setValid(isValid);
   };
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -44,7 +48,6 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
-          rel="stylesheet"
           rel="stylesheet"
         />
       </Head>
@@ -73,7 +76,7 @@ export default function Home() {
                 <div className={styles.successLabel}>Success!</div>
               </div>
             ) : (
-              <SignUpForm ref={signUpFormRef} validate={validate} />
+              <SignUpForm validate={validate} />
             )}
           </ThemeProvider>
 

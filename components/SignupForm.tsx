@@ -1,40 +1,46 @@
-import React from "react";
+import React, {Component, RefObject} from "react";
 import styles from "./signup-form.module.css";
 
-import { AccountCircle, Mail, PhoneAndroid } from "@material-ui/icons";
+import { AccountCircle, Mail, PhoneAndroid, SvgIconComponent } from "@material-ui/icons";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import FormInput from "../components/FormInput";
-import { Button } from "@material-ui/core";
+import FormInput from "./FormInput";
+import { Button, SvgIconTypeMap } from "@material-ui/core";
+import { ClassNameMap } from "@material-ui/styles";
 
-class SignUpForm extends React.Component {
+
+
+class SignUpForm extends Component<SignupFormProps, SingupFormState> {
+
+
   render() {
     return (
       <div className={styles.signUpForm}>
         <div className={styles.title}>Sign up to TAYGO</div>
         <form className={styles.formGroup}>
           <FormInput
-            icon={AccountCircle}
             name="full name"
             placeholder="John"
             ref={this.fullNameRef}
             regex={/^[a-zA-Z]([-']?[a-z]+)*( [a-zA-Z]([-']?[a-z]+)*)+$/}
+            icon={AccountCircleIcon}
           />
 
           <FormInput
-            icon={Mail}
             name="Email"
             ref={this.emailRef}
             placeholder="example@site.com"
             regex={/(.+)@(.+){2,}\.(.+){2,}/}
-          />
+            icon={Mail}
+            />
 
           <FormInput
-            icon={PhoneAndroid}
             name="mobile number"
             placeholder="888-888-888"
             ref={this.mobileNumberRef}
             regex={/^[0-9-+\s]+$/}
-          />
+            icon={PhoneAndroid}
+            />
 
           <Button
             variant="contained"
@@ -48,13 +54,16 @@ class SignUpForm extends React.Component {
       </div>
     );
   }
-  constructor() {
-    super();
+
+  private fullNameRef = React.createRef<FormInput>();
+  private emailRef = React.createRef<FormInput>();
+  private mobileNumberRef = React.createRef<FormInput>();
+
+  constructor(props: SignupFormProps) {
+    super(props);
     let isValid = false;
     this.state = { isValid };
-    this.fullNameRef = React.createRef();
-    this.emailRef = React.createRef();
-    this.mobileNumberRef = React.createRef();
+    
   }
 
   validateAllInputs = () => {
@@ -64,10 +73,8 @@ class SignUpForm extends React.Component {
       this.mobileNumberRef.current.validate(),
     ];
 
-    Promise.all(allPromises).then((values) => {
-      let reducedValid = values.reduce((value, currentValue) => {
-        return value && currentValue;
-      }, true);
+    Promise.all(allPromises).then((values: [boolean]) => {
+      let reducedValid: boolean = this.inputValueReduce(values);
 
       this.setState({ isValid: reducedValid }, () => {
         const { isValid } = this.state;
@@ -76,5 +83,23 @@ class SignUpForm extends React.Component {
       });
     });
   };
+
+  inputValueReduce = (inputValues: [boolean]): boolean => {
+    let reducedValue: boolean = inputValues.reduce((value: boolean, currentValue: boolean):boolean => {
+      return value && currentValue;
+    }, true);
+    return reducedValue;
+  }
+
 }
+
+type SignupFormProps = {
+  validate: Function,
+}
+
+type SingupFormState = {
+  isValid: boolean
+}
+
 export default SignUpForm;
+

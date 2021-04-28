@@ -1,13 +1,35 @@
-import React from "react";
+import React, { RefObject } from "react";
 import styles from "./form-input.module.css";
 
-import { TextField, InputAdornment } from "@material-ui/core";
+import { TextField, InputAdornment, SvgIconTypeMap } from "@material-ui/core";
 
 import { capitalize } from "../utils";
+import { SvgIconComponent } from "@material-ui/icons";
+import { ClassNameMap } from "@material-ui/styles";
 
-class FormInput extends React.Component {
+type FormInputProps = {
+  placeholder: string,
+  name: String,
+  regex: RegExp,
+  icon: SvgIconComponent,
+}
+
+type FormInputState = {
+  inputValue: string,
+  isError: boolean,
+  isFocused: boolean
+}
+class FormInput extends React.Component<FormInputProps, FormInputState> {
   render() {
-    const { inputValue, isError } = this.state;
+    const { inputValue, isError, isFocused } = this.state;
+    
+    let iconClass;
+    if(!isError) {
+      iconClass = isFocused?styles.focusIcon:styles.normalIcon;
+    } else {
+      iconClass = styles.errorIcon;
+    }
+
 
     return (
       <div className={styles.formInput}>
@@ -18,9 +40,10 @@ class FormInput extends React.Component {
           classes={{ root: styles.root }}
           InputLabelProps={{ className: styles.label }}
           InputProps={{
+            
             startAdornment: (
               <InputAdornment position="start">
-                {<this.props.icon ref={this.iconRef} />}
+                {<this.props.icon className={iconClass}/>}
               </InputAdornment>
             ),
           }}
@@ -35,13 +58,15 @@ class FormInput extends React.Component {
       </div>
     );
   }
-  constructor() {
-    super();
+
+  private inputRef = React.createRef<HTMLInputElement>();
+
+  constructor(props: FormInputProps) {
+    super(props);
     let inputValue = "";
     let isError = false;
-    this.state = { inputValue, isError };
-    this.inputRef = React.createRef();
-    this.iconRef = React.createRef();
+    let isFocused = false;
+    this.state = { inputValue, isError, isFocused };
   }
 
   updateValue = (e) => {
@@ -50,21 +75,24 @@ class FormInput extends React.Component {
     const { isError } = this.state;
     if (e.target.value && isError) {
       this.setState({ isError: false });
-      this.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
+      // this.props.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
     }
 
-    this.setState({ inputValue: e.target.value }, this.onBlur);
+    this.setState({ inputValue: e.target.value });
   };
 
   onFocus = () => {
     const { isError } = this.state;
 
     if (isError) return;
-    this.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
+
+    this.setState({isFocused: true});
+    // this.props.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
   };
 
   onBlur = () => {
-    this.iconRef.current.style.color = "#ddd";
+    // this.props.iconRef.current.style.color = "#ddd";
+    this.setState({isFocused: false});
   };
 
   validate = () => {
@@ -80,7 +108,7 @@ class FormInput extends React.Component {
 
       this.setState({ isError: true }, () => {
         resolve(false);
-        this.iconRef.current.style.color = "red";
+        // this.props.iconRef.current.style.color = "red";
       });
     });
   };
