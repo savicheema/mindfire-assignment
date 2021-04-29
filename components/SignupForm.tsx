@@ -1,12 +1,11 @@
-import React, {Component, RefObject} from "react";
+import React, { Component } from "react";
 import styles from "./signup-form.module.css";
 
-import { AccountCircle, Mail, PhoneAndroid, SvgIconComponent } from "@material-ui/icons";
+import { Mail, PhoneAndroid } from "@material-ui/icons";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import FormInput from "./FormInput";
-import { Button, SvgIconTypeMap } from "@material-ui/core";
-import { ClassNameMap } from "@material-ui/styles";
+import FormInput from "./utils/FormInput";
+import { Button } from "@material-ui/core";
 
 
 
@@ -32,7 +31,7 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
             placeholder="example@site.com"
             regex={/(.+)@(.+){2,}\.(.+){2,}/}
             icon={Mail}
-            />
+          />
 
           <FormInput
             name="mobile number"
@@ -40,7 +39,7 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
             ref={this.mobileNumberRef}
             regex={/^[0-9-+\s]+$/}
             icon={PhoneAndroid}
-            />
+          />
 
           <Button
             variant="contained"
@@ -63,7 +62,7 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
     super(props);
     let isValid = false;
     this.state = { isValid };
-    
+
   }
 
   validateAllInputs = () => {
@@ -85,7 +84,7 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
   };
 
   inputValueReduce = (inputValues: [boolean]): boolean => {
-    let reducedValue: boolean = inputValues.reduce((value: boolean, currentValue: boolean):boolean => {
+    let reducedValue: boolean = inputValues.reduce((value: boolean, currentValue: boolean): boolean => {
       return value && currentValue;
     }, true);
     return reducedValue;

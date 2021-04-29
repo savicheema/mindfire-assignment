@@ -1,0 +1,45 @@
+.formGroup {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  /* align-items: center; */
+  margin-top: 24px;
+  margin-bottom: 36px;
+
+  width: 80vw;
+  max-width: 380px;
+}
+
+.title {
+  margin-top: 40px;
+  height: 29px;
+  width: 290px;
+  color: #1a2233;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.44px;
+  line-height: 29px;
+  text-align: center;
+}
+
+.signInForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonFont {
+  margin-top: 40px !important;
+  text-transform: none !important;
+}
+
+.error {
+  font-size: 14px;
+
+  color: red;
+
+  margin: 12px 0 0 0;
+}

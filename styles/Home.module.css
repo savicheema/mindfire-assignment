@@ -64,68 +64,11 @@
   text-align: center;
 }
 
-.poster {
-  position: relative;
-  height: 100vh;
-  width: 480px;
-  background: linear-gradient(
-      91.07deg,
-      rgba(66, 227, 230, 0.34) 0%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    linear-gradient(135deg, #32ac71 0%, #4268e6 100%);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  color: white;
-}
-
-.image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.mortgageShoppingEx {
-  height: 52px;
-  width: 380px;
-  color: #ffffff;
-  font-family: Montserrat;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 26px;
-  text-align: center;
-  margin-top: 72px;
-}
-
-.rectangleSlim {
-  margin-top: 16px;
-  height: 2px;
-  width: 76px;
-  opacity: 0.5;
-  border-radius: 2px;
-  background-color: #ffffff;
-}
-
 @media (max-width: 900px) {
   .container {
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
     padding: 0;
-  }
-
-  .poster {
-    width: 100vw;
-  }
-
-  .mortgageShoppingEx {
-    margin-top: 36px;
   }
 }

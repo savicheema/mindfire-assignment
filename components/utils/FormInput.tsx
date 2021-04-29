@@ -3,7 +3,7 @@ import styles from "./form-input.module.css";
 
 import { TextField, InputAdornment, SvgIconTypeMap } from "@material-ui/core";
 
-import { capitalize } from "../utils";
+import { capitalize } from "../../utils";
 import { SvgIconComponent } from "@material-ui/icons";
 import { ClassNameMap } from "@material-ui/styles";
 
@@ -12,6 +12,7 @@ type FormInputProps = {
   name: String,
   regex: RegExp,
   icon: SvgIconComponent,
+  type?: string
 }
 
 type FormInputState = {
@@ -22,10 +23,10 @@ type FormInputState = {
 class FormInput extends React.Component<FormInputProps, FormInputState> {
   render() {
     const { inputValue, isError, isFocused } = this.state;
-    
-    let iconClass;
-    if(!isError) {
-      iconClass = isFocused?styles.focusIcon:styles.normalIcon;
+
+    let iconClass: string;
+    if (!isError) {
+      iconClass = isFocused ? styles.focusIcon : styles.normalIcon;
     } else {
       iconClass = styles.errorIcon;
     }
@@ -40,10 +41,10 @@ class FormInput extends React.Component<FormInputProps, FormInputState> {
           classes={{ root: styles.root }}
           InputLabelProps={{ className: styles.label }}
           InputProps={{
-            
+            type: this.props.type,
             startAdornment: (
               <InputAdornment position="start">
-                {<this.props.icon className={iconClass}/>}
+                {<this.props.icon className={iconClass} />}
               </InputAdornment>
             ),
           }}
@@ -69,6 +70,10 @@ class FormInput extends React.Component<FormInputProps, FormInputState> {
     this.state = { inputValue, isError, isFocused };
   }
 
+  value = () => {
+    return this.inputRef.current.value;
+  }
+
   updateValue = (e) => {
     console.log(e.target.value);
 
@@ -86,13 +91,13 @@ class FormInput extends React.Component<FormInputProps, FormInputState> {
 
     if (isError) return;
 
-    this.setState({isFocused: true});
+    this.setState({ isFocused: true });
     // this.props.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
   };
 
   onBlur = () => {
     // this.props.iconRef.current.style.color = "#ddd";
-    this.setState({isFocused: false});
+    this.setState({ isFocused: false });
   };
 
   validate = () => {
@@ -118,7 +123,7 @@ class FormInput extends React.Component<FormInputProps, FormInputState> {
 
     if (!isError) return "";
 
-    let helperText;
+    let helperText: string;
     switch (inputValue) {
       case "": {
         helperText = `${this.props.name} is required`;

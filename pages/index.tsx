@@ -6,11 +6,12 @@ import React, { useState } from "react";
 
 import styles from "../styles/Home.module.css";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 import { ThumbUp } from "@material-ui/icons";
 
 import SignUpForm from "../components/SignupForm";
+import Poster from "../components/Poster";
 
 const theme = createMuiTheme({
   palette: {
@@ -19,7 +20,7 @@ const theme = createMuiTheme({
       main: "rgba(0, 214, 123, 0.9)",
       dark: "rgb(0, 214, 123, 1)",
       contrastText: "#ffffff",
-      
+
     },
     secondary: {
       light: "#ff7961",
@@ -28,7 +29,7 @@ const theme = createMuiTheme({
       contrastText: "#000",
     },
   },
-  
+
 });
 
 
@@ -52,15 +53,8 @@ export default function Home() {
         />
       </Head>
 
-      <div className={styles.poster}>
-        <Image src="/poster_bg.svg" className={styles.image} layout="fill" />
-        <Image src="/logo-white.png" width={220} height={54} />
+      <Poster />
 
-        <p className={styles.mortgageShoppingEx}>
-          Mortgage Shopping Experinece Customized For You
-        </p>
-        <div className={styles.rectangleSlim}></div>
-      </div>
       <div className={styles.form}>
         <div className={styles.formContent}>
           <Image width={178} height={42} src="/logo_green.png" />
@@ -97,7 +91,7 @@ export default function Home() {
 
           <div className={styles.alreadyAMemberSi}>
             Already a member?{" "}
-            <Link href="/#">
+            <Link href="/signin">
               <a rel="noopener noreferrer" className={styles.anchor}>
                 Sign in
               </a>
