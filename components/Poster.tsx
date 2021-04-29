@@ -2,8 +2,9 @@ import React from 'react';
 import Image from "next/image";
 
 import styles from './poster.module.css';
+
 const Poster = () => <div className={styles.poster}>
-    <Image src="/poster_bg.svg" className={styles.image} layout="fill" />
+    <div className={styles.bgImg}></div>
     <Image src="/logo-white.png" width={220} height={54} />
 
     <p className={styles.mortgageShoppingEx}>

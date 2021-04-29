@@ -17,12 +17,17 @@
   color: white;
 }
 
-.image {
+.bgImg {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+
+  background-image: url(/poster_bg.svg);
+  background-size: 480px 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .mortgageShoppingEx {
