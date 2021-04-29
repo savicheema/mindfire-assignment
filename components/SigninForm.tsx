@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './signin-form.module.css';
 
-import { Mail, PhoneAndroid } from "@material-ui/icons";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { Mail } from "@material-ui/icons";
 import LockIcon from '@material-ui/icons/Lock';
 
 import FormInput from "./utils/FormInput";
