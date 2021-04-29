@@ -73,13 +73,13 @@ const SignIn = () => {
 
                 <p className={styles.byClickingTheButt}>
                     By clicking the button, I agree to the{" "}
-                    <Link href="/#">
+                    <Link href="/signin/#">
                         <a rel="noopener noreferrer" className={styles.anchor}>
                             Terms of Services
               </a>
                     </Link>
             and
-            <Link href="/#">
+            <Link href="/signin/#">
                         <a rel="noopener noreferrer" className={styles.anchor}>
                             Privacy Policy
               </a>
