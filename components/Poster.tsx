@@ -8,7 +8,7 @@ const Poster = () => <div className={styles.poster}>
     <Image src="/logo_mindfire.png" width={220} height={54} />
 
     <p className={styles.mortgageShoppingEx}>
-        Mortgage Shopping Experinece Customized For You
+        Mortgage Shopping Experience Customized For You
     </p>
     <div className={styles.rectangleSlim}></div>
 </div>;
