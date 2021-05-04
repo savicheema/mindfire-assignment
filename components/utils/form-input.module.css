@@ -1,9 +1,8 @@
-.label {
-  text-transform: capitalize;
-}
-
 .formInput {
-  margin: 12px 0 !important;
+  margin: 16px 0 !important;
+  /* padding: 18px 0 imp !important; */
+
+  height: 7vh;
   width: 80vw;
   max-width: 380px;
 }
@@ -14,6 +13,10 @@
 
 .focusIcon {
   color: rgba(0, 214, 123, 0.9);
+}
+
+.normalIcon {
+  color: #b7bfcb;
 }
 
 .errorIcon {

@@ -1,18 +1,24 @@
 import React, { RefObject } from "react";
 import styles from "./form-input.module.css";
 
+import PropTypes from 'prop-types';
 import { TextField, InputAdornment, SvgIconTypeMap } from "@material-ui/core";
 
 import { capitalize } from "../../utils";
 import { SvgIconComponent } from "@material-ui/icons";
-import { ClassNameMap } from "@material-ui/styles";
+
+import { withStyles } from "@material-ui/core/styles";
+
+
 
 type FormInputProps = {
   placeholder: string,
   name: String,
   regex: RegExp,
   icon: SvgIconComponent,
-  type?: string
+  type?: string,
+  ref: RefObject<FormInputHOC>,
+  classes: Object
 }
 
 type FormInputState = {
@@ -20,9 +26,26 @@ type FormInputState = {
   isError: boolean,
   isFocused: boolean
 }
-class FormInput extends React.Component<FormInputProps, FormInputState> {
+
+const style = {
+  root: {
+    maxWidth: "420px",
+    height: "7vh",
+    margin: "12px 0",
+
+    '& label': {
+      fontSize: "18px",
+      textTransform: "capitalize"
+    },
+
+  }
+}
+
+export class FormInputHOC extends React.Component<FormInputProps, FormInputState> {
   render() {
     const { inputValue, isError, isFocused } = this.state;
+
+    const { classes } = this.props;
 
     let iconClass: string;
     if (!isError) {
@@ -31,32 +54,30 @@ class FormInput extends React.Component<FormInputProps, FormInputState> {
       iconClass = styles.errorIcon;
     }
 
-
     return (
-      <div className={styles.formInput}>
-        <TextField
-          placeholder={this.props.placeholder}
-          label={this.props.name}
-          className={styles.textField}
-          classes={{ root: styles.root }}
-          InputLabelProps={{ className: styles.label }}
-          InputProps={{
-            type: this.props.type,
-            startAdornment: (
-              <InputAdornment position="start">
-                {<this.props.icon className={iconClass} />}
-              </InputAdornment>
-            ),
-          }}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          error={isError}
-          helperText={capitalize(this.getHelperText())}
-          value={inputValue}
-          onChange={this.updateValue}
-          inputProps={{ value: inputValue, ref: this.inputRef }}
-        />
-      </div>
+      // <div className={styles.formInput}>
+      <TextField
+        placeholder={this.props.placeholder}
+        label={this.props.name}
+        classes={classes}
+        InputLabelProps={{ className: styles.label }}
+        InputProps={{
+          type: this.props.type,
+          startAdornment: (
+            <InputAdornment position="start">
+              {<this.props.icon className={iconClass} />}
+            </InputAdornment>
+          ),
+        }}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        error={isError}
+        helperText={capitalize(this.getHelperText())}
+        value={inputValue}
+        onChange={this.updateValue}
+        inputProps={{ value: inputValue, ref: this.inputRef }}
+      />
+      // </div>
     );
   }
 
@@ -143,4 +164,9 @@ class FormInput extends React.Component<FormInputProps, FormInputState> {
   };
 }
 
-export default FormInput;
+// FormInputHOC.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
+
+
+export default withStyles(style)(FormInputHOC);

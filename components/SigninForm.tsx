@@ -4,18 +4,21 @@ import styles from './signin-form.module.css';
 import { Mail } from "@material-ui/icons";
 import LockIcon from '@material-ui/icons/Lock';
 
-import FormInput from "./utils/FormInput";
+import FormInput, { FormInputHOC } from "./utils/FormInput";
+
 import { Button } from "@material-ui/core";
+
 
 
 class SignInForm extends React.Component<SignInFormProps, SignInFormState> {
     render() {
         const { isError } = this.state;
 
+
+
         return (<div className={styles.signInForm}><div className={styles.title}>Sign In to TAYGO</div>
             {isError && <div className={styles.error}>Password do not match!</div>}
             <form className={styles.formGroup}>
-
 
                 <FormInput
                     name="Email"
@@ -54,9 +57,9 @@ class SignInForm extends React.Component<SignInFormProps, SignInFormState> {
             </form>
         </div>);
     }
-    private emailRef = React.createRef<FormInput>();
-    private passwordRef = React.createRef<FormInput>();
-    private confirmPasswordRef = React.createRef<FormInput>();
+    private emailRef = React.createRef<FormInputHOC>();
+    private passwordRef = React.createRef<FormInputHOC>();
+    private confirmPasswordRef = React.createRef<FormInputHOC>();
 
     constructor(props: SignInFormProps) {
         super(props)

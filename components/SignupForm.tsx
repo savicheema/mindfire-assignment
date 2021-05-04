@@ -4,7 +4,7 @@ import styles from "./signup-form.module.css";
 import { Mail, PhoneAndroid } from "@material-ui/icons";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import FormInput from "./utils/FormInput";
+import FormInput, { FormInputHOC } from "./utils/FormInput";
 import { Button } from "@material-ui/core";
 
 
@@ -54,9 +54,9 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
     );
   }
 
-  private fullNameRef = React.createRef<FormInput>();
-  private emailRef = React.createRef<FormInput>();
-  private mobileNumberRef = React.createRef<FormInput>();
+  private fullNameRef = React.createRef<FormInputHOC>();
+  private emailRef = React.createRef<FormInputHOC>();
+  private mobileNumberRef = React.createRef<FormInputHOC>();
 
   constructor(props: SignupFormProps) {
     super(props);
