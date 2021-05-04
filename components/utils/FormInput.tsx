@@ -37,6 +37,9 @@ const style = {
       fontSize: "18px",
       textTransform: "capitalize"
     },
+    '& .MuiInputBase-root:before': {
+      borderBottom: "1px solid #CDD3DB"
+    }
 
   }
 }
