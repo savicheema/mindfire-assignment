@@ -17,7 +17,7 @@ class SignInForm extends React.Component<SignInFormProps, SignInFormState> {
 
 
         return (<div className={styles.signInForm}><div className={styles.title}>Sign In to MINDFIRE</div>
-            {isError && <div className={styles.error}>Password do not match!</div>}
+            {isError && <div className={styles.error}>Passwords do not match!</div>}
             <form className={styles.formGroup}>
 
                 <FormInput

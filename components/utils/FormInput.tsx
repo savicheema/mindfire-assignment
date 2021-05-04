@@ -1,31 +1,15 @@
 import React, { RefObject } from "react";
 import styles from "./form-input.module.css";
 
-import PropTypes from 'prop-types';
-import { TextField, InputAdornment, SvgIconTypeMap } from "@material-ui/core";
+import { TextField, InputAdornment } from "@material-ui/core";
 
 import { capitalize } from "../../utils";
 import { SvgIconComponent } from "@material-ui/icons";
 
 import { withStyles } from "@material-ui/core/styles";
+import { ClassNameMap } from "@material-ui/styles";
 
 
-
-type FormInputProps = {
-  placeholder: string,
-  name: String,
-  regex: RegExp,
-  icon: SvgIconComponent,
-  type?: string,
-  ref: RefObject<FormInputHOC>,
-  classes: Object
-}
-
-type FormInputState = {
-  inputValue: string,
-  isError: boolean,
-  isFocused: boolean
-}
 
 const style = {
   root: {
@@ -35,12 +19,15 @@ const style = {
 
     '& label': {
       fontSize: "18px",
-      textTransform: "capitalize"
+      textTransform: "capitalize",
+      color: "black"
+    },
+    '& .MuiInputBase-root': {
+      marginTop: "24px",
     },
     '& .MuiInputBase-root:before': {
       borderBottom: "1px solid #CDD3DB"
-    }
-
+    },
   }
 }
 
@@ -58,7 +45,6 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
     }
 
     return (
-      // <div className={styles.formInput}>
       <TextField
         placeholder={this.props.placeholder}
         label={this.props.name}
@@ -80,7 +66,6 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
         onChange={this.updateValue}
         inputProps={{ value: inputValue, ref: this.inputRef }}
       />
-      // </div>
     );
   }
 
@@ -167,9 +152,20 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
   };
 }
 
-// FormInputHOC.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
+type FormInputProps = {
+  placeholder: string,
+  name: String,
+  regex: RegExp,
+  icon: SvgIconComponent,
+  type?: string,
+  ref: RefObject<FormInputHOC>,
+  classes: ClassNameMap
+}
 
+type FormInputState = {
+  inputValue: string,
+  isError: boolean,
+  isFocused: boolean
+}
 
 export default withStyles(style)(FormInputHOC);
