@@ -39,6 +39,7 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
             ref={this.mobileNumberRef}
             regex={/^[0-9-+\s]+$/}
             icon={PhoneAndroid}
+            type="number"
           />
 
           <Button

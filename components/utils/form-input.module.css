@@ -12,13 +12,16 @@
 }
 
 .focusIcon {
+  font-size: small;
   color: rgba(0, 214, 123, 0.9);
 }
 
 .normalIcon {
+  font-size: small;
   color: #b7bfcb;
 }
 
 .errorIcon {
+  font-size: small;
   color: red;
 }

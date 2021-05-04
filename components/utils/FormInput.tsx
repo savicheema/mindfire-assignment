@@ -9,12 +9,10 @@ import { SvgIconComponent } from "@material-ui/icons";
 import { withStyles } from "@material-ui/core/styles";
 import { ClassNameMap } from "@material-ui/styles";
 
-
-
 const style = {
   root: {
     maxWidth: "420px",
-    height: "7vh",
+    height: "7.7vh",
     margin: "12px 0",
 
     '& label': {
@@ -91,7 +89,6 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
     const { isError } = this.state;
     if (e.target.value && isError) {
       this.setState({ isError: false });
-      // this.props.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
     }
 
     this.setState({ inputValue: e.target.value });
@@ -103,11 +100,9 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
     if (isError) return;
 
     this.setState({ isFocused: true });
-    // this.props.iconRef.current.style.color = "rgba(0, 214, 123, 0.9)";
   };
 
   onBlur = () => {
-    // this.props.iconRef.current.style.color = "#ddd";
     this.setState({ isFocused: false });
   };
 
@@ -124,7 +119,6 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
 
       this.setState({ isError: true }, () => {
         resolve(false);
-        // this.props.iconRef.current.style.color = "red";
       });
     });
   };
