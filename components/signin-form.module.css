@@ -34,6 +34,7 @@
 .buttonFont {
   margin-top: 40px !important;
   text-transform: none !important;
+  height: 5.2vh;
 }
 
 .error {

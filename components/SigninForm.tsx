@@ -16,7 +16,7 @@ class SignInForm extends React.Component<SignInFormProps, SignInFormState> {
 
 
 
-        return (<div className={styles.signInForm}><div className={styles.title}>Sign In to TAYGO</div>
+        return (<div className={styles.signInForm}><div className={styles.title}>Sign In to MINDFIRE</div>
             {isError && <div className={styles.error}>Password do not match!</div>}
             <form className={styles.formGroup}>
 
@@ -52,7 +52,7 @@ class SignInForm extends React.Component<SignInFormProps, SignInFormState> {
                     className={styles.buttonFont}
                     onClick={this.validateAllInputs}
                 >
-                    Start with TAYGO
+                    Start with MINDFIRE
               </Button>
             </form>
         </div>);

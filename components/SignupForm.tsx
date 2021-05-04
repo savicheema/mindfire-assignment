@@ -15,7 +15,7 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
   render() {
     return (
       <div className={styles.signUpForm}>
-        <div className={styles.title}>Sign up to TAYGO</div>
+        <div className={styles.title}>Sign up to MINDFIRE</div>
         <form className={styles.formGroup}>
           <FormInput
             name="full name"
@@ -47,7 +47,7 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
             className={styles.buttonFont}
             onClick={this.validateAllInputs}
           >
-            Start with TAYGO
+            Start with MINDFIRE
           </Button>
         </form>
       </div>

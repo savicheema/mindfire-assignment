@@ -16,9 +16,9 @@ import Poster from "../components/Poster";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "rgba(0, 214, 123, 0.5)",
-      main: "rgba(0, 214, 123, 0.9)",
-      dark: "rgb(0, 214, 123, 1)",
+      light: "hsla(151,57%,60.8%,1)",
+      main: "hsla(151,57%,50.8%,1)",
+      dark: "hsla(151,57%,40.8%,1)",
       contrastText: "#ffffff",
 
     },
@@ -57,7 +57,7 @@ export default function Home() {
 
       <div className={styles.form}>
         <div className={styles.formContent}>
-          <Image width={178} height={42} src="/logo_green.png" />
+          <Image width={156} height={38} src="/logo_mindfire-white.jpg" />
 
           <ThemeProvider theme={theme}>
             {isAllValid ? (
