@@ -52,7 +52,7 @@
   background-color: #ffffff;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 500px) {
   .poster {
     width: 100vw;
   }
