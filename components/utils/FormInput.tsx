@@ -31,16 +31,9 @@ const style = {
 
 export class FormInputHOC extends React.Component<FormInputProps, FormInputState> {
   render() {
-    const { inputValue, isError, isFocused } = this.state;
+    const { inputValue, isError, iconClass } = this.state;
 
     const { classes } = this.props;
-
-    let iconClass: string;
-    if (!isError) {
-      iconClass = isFocused ? styles.focusIcon : styles.normalIcon;
-    } else {
-      iconClass = styles.errorIcon;
-    }
 
     return (
       <TextField
@@ -52,7 +45,7 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
           type: this.props.type,
           startAdornment: (
             <InputAdornment position="start">
-              {<this.props.icon className={iconClass}
+              {iconClass !== "" && <this.props.icon className={iconClass}
                 fontSize="small"
               />}
             </InputAdornment>
@@ -76,7 +69,12 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
     let inputValue = "";
     let isError = false;
     let isFocused = false;
-    this.state = { inputValue, isError, isFocused };
+    let iconClass = "";
+    this.state = { inputValue, isError, isFocused, iconClass };
+  }
+
+  componentDidMount() {
+    this.getIconClass();
   }
 
   value = () => {
@@ -88,7 +86,7 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
 
     const { isError } = this.state;
     if (e.target.value && isError) {
-      this.setState({ isError: false });
+      this.setState({ isError: false }, this.getIconClass);
     }
 
     this.setState({ inputValue: e.target.value });
@@ -99,11 +97,11 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
 
     if (isError) return;
 
-    this.setState({ isFocused: true });
+    this.setState({ isFocused: true }, this.getIconClass);
   };
 
   onBlur = () => {
-    this.setState({ isFocused: false });
+    this.setState({ isFocused: false }, this.getIconClass);
   };
 
   validate = () => {
@@ -112,12 +110,13 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
       const { regex } = this.props;
 
       if (inputValue && regex.test(inputValue)) {
-        this.setState({ isError: false });
+        this.setState({ isError: false }, this.getIconClass);
         resolve(true);
         return;
       }
 
       this.setState({ isError: true }, () => {
+        this.getIconClass();
         resolve(false);
       });
     });
@@ -146,6 +145,20 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
 
     return helperText;
   };
+
+  getIconClass = () => {
+    let { isError, isFocused, iconClass } = this.state;
+
+    if (!isError) {
+      iconClass = isFocused ? styles.focusIcon : styles.normalIcon;
+    } else {
+      iconClass = styles.errorIcon;
+    }
+
+    this.setState({ iconClass });
+
+
+  }
 }
 
 type FormInputProps = {
@@ -161,7 +174,8 @@ type FormInputProps = {
 type FormInputState = {
   inputValue: string,
   isError: boolean,
-  isFocused: boolean
+  isFocused: boolean,
+  iconClass: string
 }
 
 export default withStyles(style)(FormInputHOC);
