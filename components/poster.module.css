@@ -61,3 +61,9 @@
     margin-top: 36px;
   }
 }
+
+@media (max-width: 500px) {
+  .poster {
+    display: none;
+  }
+}
