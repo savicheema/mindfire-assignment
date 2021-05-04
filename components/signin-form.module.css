@@ -35,6 +35,7 @@
   margin-top: 40px !important;
   text-transform: none !important;
   height: 5.2vh;
+  min-height: 28px;
 }
 
 .error {
