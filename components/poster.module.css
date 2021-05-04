@@ -62,7 +62,7 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (min-width: 500px) and (max-width: 900) {
   .poster {
     display: none;
   }
