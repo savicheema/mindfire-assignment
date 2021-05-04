@@ -54,7 +54,9 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
           type: this.props.type,
           startAdornment: (
             <InputAdornment position="start">
-              {<this.props.icon className={iconClass} />}
+              {<this.props.icon className={iconClass}
+                fontSize="small"
+              />}
             </InputAdornment>
           ),
         }}
