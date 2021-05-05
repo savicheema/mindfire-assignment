@@ -39,7 +39,18 @@ class SignUpForm extends Component<SignupFormProps, SingupFormState> {
             ref={this.mobileNumberRef}
             regex={/^[0-9-+\s]+$/}
             icon={PhoneAndroid}
-            type="number"
+            formatOnChange={(value: string) => {
+              const strippedValue = value.split("-").join("");
+              if ((!/^\d+$/.test(strippedValue) && strippedValue.length) || (strippedValue.length > 10)) return null;
+
+              if (strippedValue.length <= 3) {
+                return strippedValue;
+              } else if (strippedValue.length <= 6) {
+                return `${strippedValue.substring(0, 3)}-${strippedValue.substring(3)}`;
+              } else {
+                return `${strippedValue.substring(0, 3)}-${strippedValue.substring(3, 6)}-${strippedValue.substring(6)}`;
+              }
+            }}
           />
 
           <Button

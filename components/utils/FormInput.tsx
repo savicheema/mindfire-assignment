@@ -89,6 +89,17 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
       this.setState({ isError: false }, this.getIconClass);
     }
 
+    if (this.props.formatOnChange) {
+      const { formatOnChange } = this.props;
+      const formattedValue = formatOnChange(e.target.value);
+
+      if (formattedValue === null) return;
+
+      this.setState({ inputValue: formattedValue });
+      return;
+    }
+
+
     this.setState({ inputValue: e.target.value });
   };
 
@@ -168,7 +179,8 @@ type FormInputProps = {
   icon: SvgIconComponent,
   type?: string,
   ref: RefObject<FormInputHOC>,
-  classes: ClassNameMap
+  classes: ClassNameMap,
+  formatOnChange?: Function
 }
 
 type FormInputState = {
