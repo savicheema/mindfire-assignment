@@ -41,7 +41,7 @@ const SignIn = () => {
 
     return (<div className={styles.container}>
         <Head>
-            <title> Taygo Assignment </title>
+            <title> Mindfire Assignment </title>
             <link rel="icon" href="/favicon.ico" />
             <link rel="preconnect" href="https://fonts.gstatic.com" />
             <link
