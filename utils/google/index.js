@@ -17,7 +17,10 @@ function onSuccess(googleUser) {
       " Token: " +
       googleUser.getAuthResponse().id_token
   );
+
+  window.location = "/user/profile";
 }
+
 function onFailure(error) {
   console.log(error);
 }

@@ -6,34 +6,16 @@ import React, { useState } from "react";
 
 import styles from "../styles/Home.module.css";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
 
 import { ThumbUp } from "@material-ui/icons";
 
 import SignUpForm from "../components/SignupForm";
 import Poster from "../components/Poster";
 
-import { useScript, renderButton, analytics, initFireBaseApp } from "../utils";
+import { useScript, renderButton, theme, initFireBaseApp } from "../utils";
 import credentials from "../credentials.json";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: "hsla(151,57%,60.8%,1)",
-      main: "hsla(151,57%,50.8%,1)",
-      dark: "hsla(151,57%,40.8%,1)",
-      contrastText: "#ffffff",
 
-    },
-    secondary: {
-      light: "#ff7961",
-      main: "#f44336",
-      dark: "#ba000d",
-      contrastText: "#000",
-    },
-  },
-
-});
 
 
 export default function Home() {
@@ -47,6 +29,7 @@ export default function Home() {
 
   useScript("https://apis.google.com/js/platform.js", () => { renderButton() })
   useScript("https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js", () => { initFireBaseApp() })
+
   return (
     <div className={styles.container}>
       <Head>
@@ -63,6 +46,8 @@ export default function Home() {
       <Poster />
 
       <div className={styles.form}>
+        <Link href="/user/profile" >Profile</Link>
+
         <div className={styles.formContent}>
           <Image width={156} height={38} src="/logo_mindfire-white.jpg" />
 

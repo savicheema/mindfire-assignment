@@ -35,6 +35,18 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
 
     const { classes } = this.props;
 
+    const inputAdornmentIcon = () => {
+      if (this.props.icon) {
+        return (<InputAdornment position="start">
+          {iconClass !== "" && <this.props.icon className={iconClass}
+            fontSize="small"
+          />}
+        </InputAdornment>)
+      }
+
+      return " "
+    }
+
     return (
       <TextField
         placeholder={this.props.placeholder}
@@ -43,14 +55,9 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
         InputLabelProps={{ className: styles.label }}
         InputProps={{
           type: this.props.type,
-          startAdornment: (
-            <InputAdornment position="start">
-              {iconClass !== "" && <this.props.icon className={iconClass}
-                fontSize="small"
-              />}
-            </InputAdornment>
-          ),
+          startAdornment: inputAdornmentIcon()
         }}
+        select={this.props.type === "select"}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         error={isError}
@@ -58,7 +65,7 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
         value={inputValue}
         onChange={this.updateValue}
         inputProps={{ value: inputValue, ref: this.inputRef }}
-      />
+      >{this.props.children}</TextField>
     );
   }
 
@@ -176,7 +183,7 @@ type FormInputProps = {
   placeholder: string,
   name: String,
   regex: RegExp,
-  icon: SvgIconComponent,
+  icon?: SvgIconComponent,
   type?: string,
   ref: RefObject<FormInputHOC>,
   classes: ClassNameMap,

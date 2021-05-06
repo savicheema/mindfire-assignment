@@ -1,0 +1,23 @@
+.profileForm {
+  max-width: 380px;
+  width: 70vw;
+}
+
+.profileFormButtons {
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+@media screen and (min-width: 900px) {
+  .profileForm {
+    max-width: 1000px;
+  }
+
+  .profileFormButtons {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}

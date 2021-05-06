@@ -1,0 +1,10 @@
+.formDiv {
+  display: grid;
+  grid-template-columns: 100%;
+}
+@media screen and (min-width: 900px) {
+  .formDiv {
+    grid-template-columns: 49% 49%;
+    grid-gap: 2%;
+  }
+}
