@@ -13,6 +13,9 @@ import { ThumbUp } from "@material-ui/icons";
 import SignUpForm from "../components/SignupForm";
 import Poster from "../components/Poster";
 
+import { useScript, renderButton, analytics, initFireBaseApp } from "../utils";
+import credentials from "../credentials.json";
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -40,7 +43,10 @@ export default function Home() {
     setValid(isValid);
   };
 
+  const googleContent = `${credentials.clientId}`;
 
+  useScript("https://apis.google.com/js/platform.js", () => { renderButton() })
+  useScript("https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js", () => { initFireBaseApp() })
   return (
     <div className={styles.container}>
       <Head>
@@ -51,6 +57,7 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        <meta name="google-signin-client_id" content={googleContent} />
       </Head>
 
       <Poster />
@@ -70,7 +77,7 @@ export default function Home() {
                 <div className={styles.successLabel}>Success!</div>
               </div>
             ) : (
-              <SignUpForm validate={validate} />
+              [<SignUpForm validate={validate} key={0} />, <div id="my-signin2" key={1}></div>]
             )}
           </ThemeProvider>
 
