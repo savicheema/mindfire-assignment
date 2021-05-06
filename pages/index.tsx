@@ -46,7 +46,6 @@ export default function Home() {
       <Poster />
 
       <div className={styles.form}>
-        <Link href="/user/profile" >Profile</Link>
 
         <div className={styles.formContent}>
           <Image width={156} height={38} src="/logo_mindfire-white.jpg" />
