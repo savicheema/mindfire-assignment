@@ -18,9 +18,6 @@ const Profile = () => {
 
   useEffect(() => {
 
-
-    const fetchUrl = new URL('http://localhost:3000/api/user/fetch');
-
     if (session) {
 
       getData(session.user.email).then((data) => {
@@ -28,15 +25,10 @@ const Profile = () => {
         setProfile(data);
       }).catch((err) => {
         console.error("fetch error", err);
-
       })
 
     }
 
-
-    // return () => {
-    //   setProfile(undefined);
-    // }
   }, [session])
 
   console.log("SESSION", session, profile);
@@ -45,7 +37,7 @@ const Profile = () => {
     <div className={styles.profile}>
       {session && <button onClick={() => { signOut({ callbackUrl: "/" }) }}>Sign out</button>}
       <ThemeProvider theme={theme}>
-        <ProfileForm profile={profile} />
+        {session && <ProfileForm profile={profile} />}
       </ThemeProvider>
     </div>
   );

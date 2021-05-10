@@ -10,6 +10,8 @@ class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, Pers
 
     console.log("PERSONAL", personal);
 
+    if (!personal) return "";
+
     return (<div className={styles.personalDetailsForm}>
       <h3 className={styles.heading}>Personal Details</h3>
       <div className={formStyles.formDiv}>
