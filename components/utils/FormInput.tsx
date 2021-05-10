@@ -65,6 +65,7 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
         value={inputValue}
         onChange={this.updateValue}
         inputProps={{ value: inputValue, ref: this.inputRef }}
+        disabled={this.props.disabled}
       >{this.props.children}</TextField>
     );
   }
@@ -191,7 +192,8 @@ type FormInputProps = {
   ref: RefObject<FormInputHOC>,
   classes: ClassNameMap,
   formatOnChange?: Function,
-  value?: string
+  value?: string,
+  disabled?: boolean
 }
 
 type FormInputState = {

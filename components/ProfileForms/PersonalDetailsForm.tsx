@@ -21,6 +21,7 @@ class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, Pers
           regex={/^[a-zA-Z]([-']?[a-z]+)*( [a-zA-Z]([-']?[a-z]+)*)+$/}
           placeholder="John Doe"
           value={personal.name}
+          disabled={true}
         />
         <FormInput
           name="Email"
@@ -28,6 +29,7 @@ class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, Pers
           placeholder="example@site.com"
           regex={/(.+)@(.+){2,}\.(.+){2,}/}
           value={personal.email}
+          disabled={true}
         />
         <FormInput
           name="mobile number"
