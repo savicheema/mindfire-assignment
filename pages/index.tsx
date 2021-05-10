@@ -35,7 +35,7 @@ export default function Home({ providers }) {
 
     const list = signInList.concat(
       [
-        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn("google", { callbackUrl: `http://${window.location.host}/user/profile` }) }}>Sign in Google</button>
+        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn("google", { callbackUrl: `https://${window.location.host}/user/profile` }) }}>Sign in Google</button>
       ]
     );
 
@@ -113,7 +113,7 @@ Home.getInitialProps = async (context) => {
 
   if (session && res && session.accessToken) {
     res.writeHead(302, {
-      Location: "/",
+      Location: "/user/profile",
     });
     res.end();
     return;
