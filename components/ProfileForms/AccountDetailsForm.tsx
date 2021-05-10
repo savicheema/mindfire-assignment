@@ -102,7 +102,9 @@ class AccountDetailsForm extends React.Component<AccountDetailsFormProps, Accoun
   }
 }
 
-type AccountDetailsFormProps = {};
+type AccountDetailsFormProps = {
+  account: any
+};
 type AccountDetailsFormState = {};
 
 export default AccountDetailsForm;

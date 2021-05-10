@@ -3,7 +3,7 @@ import Providers from "next-auth/providers";
 
 import credentials from "../../../credentials.json";
 
-import { addData, getData, updateData } from "../../../utils/firebase";
+import { addData, docExists } from "../../../utils/firebase";
 
 // console.log("CREDS", credentials);
 
@@ -23,7 +23,12 @@ const options = {
   // },
   callbacks: {
     signIn: async (user, account, profile) => {
-      console.log("SIGNIN CALLBACK", user);
+      const isDocExist = await docExists(user.email);
+
+      console.log("SIGNIN CALLBACK", user, isDocExist);
+
+      if (isDocExist) return true;
+
       addData(user)
         .then(() => {
           console.log("Add user done");
@@ -31,6 +36,7 @@ const options = {
         .catch(() => {
           console.error("add data error");
         });
+
       return true;
       // if (
       //   account.provider === "google" &&

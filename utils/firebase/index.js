@@ -129,15 +129,21 @@ export const getData = (userId) => {
 };
 
 export const updateData = (doc, data) => {
-  const db = firebase.firestore();
+  return new Promise((resolve, reject) => {
+    initFireBaseApp().then(() => {
+      const db = firebase.firestore();
 
-  console.log("UPDATE DATA", data);
-  db.collection("users")
-    .doc(doc)
-    .set({ ...data, basketball: "game" })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
+      console.log("UPDATE DATA", data);
+      db.collection("users")
+        .doc(doc)
+        .set(data)
+        .then(resolve)
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+          reject();
+        });
     });
+  });
 };
 
 function isUserEqual(googleUser, firebaseUser) {
@@ -156,3 +162,26 @@ function isUserEqual(googleUser, firebaseUser) {
   }
   return false;
 }
+
+export const docExists = (docID) => {
+  return new Promise((resolve, reject) => {
+    initFireBaseApp()
+      .then(() => {
+        const db = firebase.firestore();
+
+        const usersRef = db.collection("users").doc(docID);
+
+        usersRef.get().then((docSnapshot) => {
+          if (docSnapshot.exists) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
+      })
+      .catch((err) => {
+        console.error("DOC exists error", err);
+        reject();
+      });
+  });
+};

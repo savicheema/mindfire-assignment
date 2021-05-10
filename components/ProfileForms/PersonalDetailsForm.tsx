@@ -34,12 +34,14 @@ class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, Pers
           ref={this.mobileRef}
           placeholder="+91 88888 88888"
           regex={/^[0-9-+\s]+$/}
+          value={personal.mobile}
         />
         <FormInput
           name="address"
           ref={this.addressRef}
           placeholder="433 Airport Blvd, Ste 106, Burl.."
           regex={/.*/}
+          value={personal.address}
         />
       </div>
     </div>);
@@ -51,12 +53,56 @@ class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, Pers
 
   constructor(props: PersonalDetailsFormProps) {
     super(props)
+
+    let isValid = false;
+    this.state = { isValid };
+  }
+
+  // validate = () => {
+  //   return new Promise(async (resolve) => {
+  //     await this.nameRef.current.validate();
+  //   });
+  // }
+
+  validateAllInputs = () => {
+    const allPromises = [
+      this.mobileRef.current.validate(),
+      this.addressRef.current.validate(),
+    ];
+
+    return new Promise<{ personalFormValid: boolean, personalData: Object }>((resolve) => {
+      Promise.all(allPromises).then((values: [boolean]) => {
+        let reducedValid: boolean = this.inputValueReduce(values);
+
+        this.setState({ isValid: reducedValid }, () => {
+          const { isValid } = this.state;
+          // const { submit } = this.props;
+          // submit(isValid);
+          resolve({
+            personalFormValid: isValid, personalData: {
+              mobile: this.mobileRef.current.value(),
+              address: this.addressRef.current.value()
+            }
+          })
+        });
+      });
+    })
+  }
+
+  inputValueReduce = (inputValues: [boolean]): boolean => {
+    let reducedValue: boolean = inputValues.reduce((value: boolean, currentValue: boolean): boolean => {
+      return value && currentValue;
+    }, true);
+    return reducedValue;
   }
 }
 
 type PersonalDetailsFormProps = {
   personal: any
+  submit?: Function
 };
-type PersonalDetailsFormState = {}
+type PersonalDetailsFormState = {
+  isValid: boolean
+}
 
 export default PersonalDetailsForm;
