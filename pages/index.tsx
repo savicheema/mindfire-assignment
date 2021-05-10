@@ -34,8 +34,9 @@ export default function Home({ providers }) {
 
 
     const list = signInList.concat(Object.values(providers).map((provider) => {
+      console.log("provider", provider.id)
       return (
-        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn(provider.id, { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in {provider.name}</button>
+        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn("google", { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in {provider.name}</button>
       );
     }));
 
