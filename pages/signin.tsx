@@ -50,7 +50,7 @@ const SignIn = ({ providers, csrfToken }) => {
 
         const list = signInList.concat(Object.values(providers).map((provider) => {
             return (
-                <button key={0} onClick={() => { signIn(provider.id, { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in {provider.name}</button>
+                <button key={0} onClick={() => { signIn("google", { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in Google</button>
             );
         }));
 
@@ -135,7 +135,7 @@ SignIn.getInitialProps = async (context) => {
 
     return {
         session: undefined,
-        providers: await providers(context),
+        providers: await providers(),
         csrfToken: await csrfToken(context),
     };
 };

@@ -121,7 +121,7 @@ Home.getInitialProps = async (context) => {
 
   return {
     session: undefined,
-    providers: await providers(context),
+    providers: await providers(),
     csrfToken: await csrfToken(context),
   };
 };
