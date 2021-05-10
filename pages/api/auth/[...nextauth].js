@@ -24,19 +24,13 @@ const options = {
   callbacks: {
     signIn: async (user, account, profile) => {
       console.log("SIGNIN CALLBACK", user);
-      // addData(user)
-      //   .then(() => {
-      //     getData(user.email)
-      //       .then((data) => {
-      //         updateData(user.email, data);
-      //       })
-      //       .catch((err) => {
-      //         console.error("get data error", err);
-      //       });
-      //   })
-      //   .catch(() => {
-      //     console.error("add data error");
-      //   });
+      addData(user)
+        .then(() => {
+          console.log("Add user done");
+        })
+        .catch(() => {
+          console.error("add data error");
+        });
       return true;
       // if (
       //   account.provider === "google" &&
