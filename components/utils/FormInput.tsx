@@ -82,6 +82,9 @@ export class FormInputHOC extends React.Component<FormInputProps, FormInputState
 
   componentDidMount() {
     this.getIconClass();
+
+    if (this.props.value)
+      this.setState({ inputValue: this.props.value })
   }
 
   value = () => {
@@ -187,7 +190,8 @@ type FormInputProps = {
   type?: string,
   ref: RefObject<FormInputHOC>,
   classes: ClassNameMap,
-  formatOnChange?: Function
+  formatOnChange?: Function,
+  value?: string
 }
 
 type FormInputState = {

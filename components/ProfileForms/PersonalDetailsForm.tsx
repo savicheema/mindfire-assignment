@@ -6,6 +6,10 @@ import FormInput, { FormInputHOC } from "../utils/FormInput";
 
 class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, PersonalDetailsFormState> {
   render() {
+    const { personal } = this.props;
+
+    console.log("PERSONAL", personal);
+
     return (<div className={styles.personalDetailsForm}>
       <h3 className={styles.heading}>Personal Details</h3>
       <div className={formStyles.formDiv}>
@@ -14,12 +18,14 @@ class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, Pers
           ref={this.nameRef}
           regex={/^[a-zA-Z]([-']?[a-z]+)*( [a-zA-Z]([-']?[a-z]+)*)+$/}
           placeholder="John Doe"
+          value={personal.name}
         />
         <FormInput
           name="Email"
           ref={this.emailRef}
           placeholder="example@site.com"
           regex={/(.+)@(.+){2,}\.(.+){2,}/}
+          value={personal.email}
         />
         <FormInput
           name="mobile number"
@@ -46,7 +52,9 @@ class PersonalDetailsForm extends React.Component<PersonalDetailsFormProps, Pers
   }
 }
 
-type PersonalDetailsFormProps = {};
+type PersonalDetailsFormProps = {
+  personal: any
+};
 type PersonalDetailsFormState = {}
 
 export default PersonalDetailsForm;

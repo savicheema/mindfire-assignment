@@ -13,6 +13,9 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThumbUp } from "@material-ui/icons";
 
+import { providers, signIn, getSession, csrfToken, signOut } from "next-auth/client";
+
+
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -32,12 +35,31 @@ const theme = createMuiTheme({
 
 });
 
-const SignIn = () => {
+const SignIn = ({ providers, csrfToken }) => {
     let [isAllValid, setValid] = useState(false);
 
     const validate = (isValid: boolean) => {
         setValid(isValid);
     };
+
+    const signInSection = () => {
+        const signInList = [
+            <SignInForm validate={validate} key={0} />
+        ];
+
+
+        const list = signInList.concat(Object.values(providers).map((provider) => {
+            return (
+                <button key={0} onClick={() => { signIn(provider.id, { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in {provider.name}</button>
+            );
+        }));
+
+        console.log("LIST", list);
+
+        return list;
+
+    }
+
 
     return (<div className={styles.container}>
         <Head>
@@ -67,7 +89,7 @@ const SignIn = () => {
                             <div className={styles.successLabel}>Success!</div>
                         </div>
                     ) : (
-                        <SignInForm validate={validate} />
+                        signInSection()
                     )}
                 </ThemeProvider>
 
@@ -98,4 +120,24 @@ const SignIn = () => {
         </div>
     </div>);
 }
+
+SignIn.getInitialProps = async (context) => {
+    const { req, res } = context;
+    const session = await getSession({ req });
+
+    if (session && res && session.accessToken) {
+        res.writeHead(302, {
+            Location: "/",
+        });
+        res.end();
+        return;
+    }
+
+    return {
+        session: undefined,
+        providers: await providers(context),
+        csrfToken: await csrfToken(context),
+    };
+};
+
 export default SignIn;

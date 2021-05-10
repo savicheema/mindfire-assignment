@@ -12,23 +12,37 @@ import { ThumbUp } from "@material-ui/icons";
 import SignUpForm from "../components/SignupForm";
 import Poster from "../components/Poster";
 
-import { useScript, renderButton, theme, initFireBaseApp } from "../utils";
+import { theme } from "../utils";
 import credentials from "../credentials.json";
 
+import { providers, signIn, getSession, csrfToken } from "next-auth/client";
 
 
 
-export default function Home() {
+export default function Home({ providers }) {
   let [isAllValid, setValid] = useState(false);
 
   const validate = (isValid: boolean) => {
     setValid(isValid);
   };
 
-  const googleContent = `${credentials.clientId}`;
 
-  useScript("https://apis.google.com/js/platform.js", () => { renderButton() })
-  useScript("https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js", () => { initFireBaseApp() })
+  const signUpSection = () => {
+    const signInList = [
+      <SignUpForm validate={validate} key={0} />
+    ];
+
+
+    const list = signInList.concat(Object.values(providers).map((provider) => {
+      return (
+        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn(provider.id, { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in {provider.name}</button>
+      );
+    }));
+
+    console.log("LIST", list);
+
+    return list;
+  }
 
   return (
     <div className={styles.container}>
@@ -40,7 +54,6 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        <meta name="google-signin-client_id" content={googleContent} />
       </Head>
 
       <Poster />
@@ -61,7 +74,7 @@ export default function Home() {
                 <div className={styles.successLabel}>Success!</div>
               </div>
             ) : (
-              [<SignUpForm validate={validate} key={0} />, <div id="my-signin2" key={1}></div>]
+              signUpSection()
             )}
           </ThemeProvider>
 
@@ -93,3 +106,22 @@ export default function Home() {
     </div>
   );
 }
+
+Home.getInitialProps = async (context) => {
+  const { req, res } = context;
+  const session = await getSession({ req });
+
+  if (session && res && session.accessToken) {
+    res.writeHead(302, {
+      Location: "/",
+    });
+    res.end();
+    return;
+  }
+
+  return {
+    session: undefined,
+    providers: await providers(context),
+    csrfToken: await csrfToken(context),
+  };
+};

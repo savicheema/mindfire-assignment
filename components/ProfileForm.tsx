@@ -9,10 +9,10 @@ import {
   AccountDetailsForm,
 } from "./ProfileForms";
 
-const ProfileForm = () => (
+const ProfileForm = ({ profile }) => (
   <form className={styles.profileForm}>
     <ProfilePic />
-    <PersonalDetailsForm />
+    <PersonalDetailsForm personal={profile} />
     <AccountDetailsForm />
 
     <div className={styles.profileFormButtons}>
