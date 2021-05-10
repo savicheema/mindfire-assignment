@@ -33,11 +33,11 @@ export default function Home({ providers }) {
     ];
 
 
-    const list = signInList.concat(Object.values(providers).map((provider) => {
-      return (
-        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn("google", { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in Google</button>
-      );
-    }));
+    const list = signInList.concat(
+      [
+        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn("google", { callbackUrl: `http://${window.location.host}/user/profile` }) }}>Sign in Google</button>
+      ]
+    );
 
     console.log("LIST", list);
 

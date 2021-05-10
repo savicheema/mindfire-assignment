@@ -15,7 +15,6 @@ import { ThumbUp } from "@material-ui/icons";
 
 import { providers, signIn, getSession, csrfToken, signOut } from "next-auth/client";
 
-
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -48,11 +47,11 @@ const SignIn = ({ providers, csrfToken }) => {
         ];
 
 
-        const list = signInList.concat(Object.values(providers).map((provider) => {
-            return (
-                <button key={0} onClick={() => { signIn("google", { callbackUrl: 'http://localhost:3000/user/profile' }) }}>Sign in Google</button>
-            );
-        }));
+        const list = signInList.concat(
+            [
+                <button key={0} onClick={() => { signIn("google", { callbackUrl: `${window.location.host}/user/profile` }) }}>Sign in Google</button>
+            ]
+        );
 
         console.log("LIST", list);
 
