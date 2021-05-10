@@ -16,7 +16,7 @@ class ProfileForm extends React.Component<ProfileFormProps, ProfileFormState> {
 
     return (
       <form className={styles.profileForm}>
-        <ProfilePic />
+        <ProfilePic profile={profile} />
         <PersonalDetailsForm personal={profile} ref={this.personalDetailFormRef} />
         <AccountDetailsForm ref={this.accountDetailFormRef} account={profile} />
 
