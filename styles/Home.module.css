@@ -67,12 +67,7 @@
 }
 
 .secondaryButton {
-  /* min-width: 380px; */
-  width: 100%;
-  /* height: 6vh; */
   min-height: 28px;
-  /* font-size: large; */
-  /* border: none; */
   box-shadow: 1px 1px #ddd, -1px -1px #ddd;
 }
 
@@ -82,5 +77,9 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+  }
+
+  .secondaryButton {
+    width: 100%;
   }
 }
