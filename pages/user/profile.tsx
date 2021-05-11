@@ -35,6 +35,7 @@ const Profile = () => {
 
   return (
     <div className={styles.profile}>
+      {loading && "...loading"}
       <ThemeProvider theme={theme}>
         {session && <ProfileForm profile={profile} />}
       </ThemeProvider>
