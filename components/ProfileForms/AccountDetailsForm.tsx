@@ -7,7 +7,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 
 class AccountDetailsForm extends React.Component<AccountDetailsFormProps, AccountDetailsFormState> {
+
   render() {
+    const { account } = this.props;
+
+    if (!account) return "";
+
     return (<div className={styles.accountDetailsForm}>
       <h3 className={styles.heading}>Account Details</h3>
       <div className={formStyles.formDiv}>
@@ -17,6 +22,7 @@ class AccountDetailsForm extends React.Component<AccountDetailsFormProps, Accoun
           placeholder="example@site.com"
           regex={/[a-zA-Z]*/}
           type="select"
+          value={account.purpose}
         >[
           <MenuItem key={0} value={"Primary Residence"}>Primary Residence</MenuItem>,
           <MenuItem key={1} value={"Secondary Home"}>Secondary Home</MenuItem>,
@@ -30,6 +36,7 @@ class AccountDetailsForm extends React.Component<AccountDetailsFormProps, Accoun
           placeholder="example@site.com"
           regex={/[a-zA-Z]*/}
           type="select"
+          value={account.property}
         >[
           <MenuItem key={0} value={"Immediately: Signed a Purchase Agreement"}>Immediately: Signed a Purchase Agreement</MenuItem>,
           <MenuItem key={1} value={"ASAP: Found a House/Offer Pending"}>ASAP: Found a House/Offer Pending</MenuItem>,
@@ -47,6 +54,7 @@ class AccountDetailsForm extends React.Component<AccountDetailsFormProps, Accoun
           placeholder="example@site.com"
           regex={/[a-zA-Z]*/}
           type="select"
+          value={account.loan}
         >[
           <MenuItem key={0} value={"Home Purchase"}>Home Purchase</MenuItem>,
           <MenuItem key={1} value={"Home Refinance"}>Home Refinance</MenuItem>,
@@ -60,6 +68,7 @@ class AccountDetailsForm extends React.Component<AccountDetailsFormProps, Accoun
           placeholder="example@site.com"
           regex={/[a-zA-Z]*/}
           type="select"
+          value={account.credit}
         >[
           <MenuItem key={0} value={"Excellent (720+)"}>Excellent (720+)</MenuItem>,
           <MenuItem key={1} value={"Good (660-719)"}>Good (660-719)</MenuItem>,
@@ -73,18 +82,21 @@ class AccountDetailsForm extends React.Component<AccountDetailsFormProps, Accoun
           ref={this.jobRef}
           placeholder="Software Engineer"
           regex={/.*/}
+          value={account.job}
         />
         <FormInput
           name="Income"
           ref={this.incomeRef}
           placeholder="10000"
-          regex={/d+/}
+          regex={/d*/}
+          value={account.income}
         />
         <FormInput
           name="Current Challenges"
           ref={this.challengeRef}
           placeholder=""
           regex={/.*/}
+          value={account.challenge}
         />
       </div>
     </div>);
@@ -99,12 +111,59 @@ class AccountDetailsForm extends React.Component<AccountDetailsFormProps, Accoun
 
   constructor(props: AccountDetailsFormProps) {
     super(props)
+
+    let isValid = false;
+    this.state = { isValid };
+  }
+
+  validateAllInputs = () => {
+    const allPromises = [
+      this.purposeRef.current.validate(),
+      this.propertyTypeRef.current.validate(),
+      this.loanTypeRef.current.validate(),
+      this.creditScoreRef.current.validate(),
+      this.jobRef.current.validate(),
+      this.incomeRef.current.validate(),
+      this.challengeRef.current.validate(),
+    ];
+
+    return new Promise<{ accountFormValid: boolean, accountData: Object }>((resolve) => {
+      Promise.all(allPromises).then((values: [boolean]) => {
+        let reducedValid: boolean = this.inputValueReduce(values);
+
+        this.setState({ isValid: reducedValid }, () => {
+          const { isValid } = this.state;
+          // const { submit } = this.props;
+          // submit(isValid);
+          resolve({
+            accountFormValid: isValid, accountData: {
+              purpose: this.purposeRef.current.value(),
+              property: this.propertyTypeRef.current.value(),
+              loan: this.loanTypeRef.current.value(),
+              credit: this.creditScoreRef.current.value(),
+              job: this.jobRef.current.value(),
+              income: this.incomeRef.current.value(),
+              challenge: this.challengeRef.current.value(),
+            }
+          })
+        });
+      });
+    })
+  }
+
+  inputValueReduce = (inputValues: [boolean]): boolean => {
+    let reducedValue: boolean = inputValues.reduce((value: boolean, currentValue: boolean): boolean => {
+      return value && currentValue;
+    }, true);
+    return reducedValue;
   }
 }
 
 type AccountDetailsFormProps = {
   account: any
 };
-type AccountDetailsFormState = {};
+type AccountDetailsFormState = {
+  isValid: boolean
+};
 
 export default AccountDetailsForm;

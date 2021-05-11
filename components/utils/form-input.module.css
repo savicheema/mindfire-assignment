@@ -14,7 +14,7 @@
 
 .focusIcon {
   font-size: small;
-  color: rgba(0, 214, 123, 0.9);
+  color: var(--primary-color);
 }
 
 .normalIcon {

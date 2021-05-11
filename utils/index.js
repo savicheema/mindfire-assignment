@@ -14,8 +14,8 @@ export const useScript = (url, onLoad) => {
   useEffect(() => {
     const script = document.createElement("script");
 
-    script.async = true;
-    script.defer = true;
+    // script.async = true;
+    // script.defer = true;
     script.onload = onLoad;
 
     script.src = url;
@@ -31,18 +31,18 @@ export const useScript = (url, onLoad) => {
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "hsla(151,57%,60.8%,1)",
-      main: "hsla(151,57%,50.8%,1)",
-      dark: "hsla(151,57%,40.8%,1)",
+      light: "hsla(225, 55%, 10%, 1)",
+      main: "hsla(225, 55%, 5%, 1)",
+      dark: "hsla(225, 55%, 0%, 1)",
       contrastText: "#ffffff",
     },
     secondary: {
-      light: "hsla(1000,100%,100%, 0.8)",
-      main: "hsla(1000,100%,98%, 1)",
-      dark: "hsla(1000,100%,95%, 1)",
+      light: "hsla(10.2, 90.5%, 70.4%, 0.8)",
+      main: "hsla(10.2, 90.5%, 60.4%, 1)",
+      dark: "hsla(10.2, 90.5%, 50.4%, 1)",
       contrastText: "#000",
     },
   },
 });
 
-export { renderButton, analytics, initFireBaseApp };
+export { analytics, initFireBaseApp, renderButton };

@@ -8,6 +8,12 @@
       rgba(255, 255, 255, 0) 100%
     ),
     linear-gradient(135deg, #32ac71 0%, #4268e6 100%);
+  background: linear-gradient(
+      91.07deg,
+      var(--primary-gradient) 0%,
+      var(--primary-move-gradient) 100%
+    ),
+    linear-gradient(135deg, var(--primary-color) 0%, var(--primary-move) 100%);
 
   display: flex;
   justify-content: center;

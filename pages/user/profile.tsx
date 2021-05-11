@@ -35,7 +35,6 @@ const Profile = () => {
 
   return (
     <div className={styles.profile}>
-      {session && <button onClick={() => { signOut({ callbackUrl: "/" }) }}>Sign out</button>}
       <ThemeProvider theme={theme}>
         {session && <ProfileForm profile={profile} />}
       </ThemeProvider>

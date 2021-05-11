@@ -16,6 +16,7 @@ import { theme } from "../utils";
 import credentials from "../credentials.json";
 
 import { providers, signIn, getSession, csrfToken } from "next-auth/client";
+import { Button } from "@material-ui/core";
 
 
 
@@ -32,10 +33,14 @@ export default function Home({ providers }) {
       <SignUpForm validate={validate} key={0} />
     ];
 
+    const callbackUrl = typeof window !== "undefined" ? `https://${window.location.host}/user/profile` : "http://localhost:3000/user/profile";
+
+    console.log("CALLBACK URL", callbackUrl);
+
 
     const list = signInList.concat(
       [
-        <button className={styles.googleAuthButton} key={0} onClick={() => { signIn("google", { callbackUrl: `https://${window.location.host}/user/profile` }) }}>Sign in Google</button>
+        <Button size="large" color="secondary" startIcon={<Image width="16" height="16" src="/search.png" alt="social google" />} className={styles.secondaryButton} key={1} onClick={() => { signIn("google", { callbackUrl }) }}>Sign in Google</Button>
       ]
     );
 
@@ -61,7 +66,7 @@ export default function Home({ providers }) {
       <div className={styles.form}>
 
         <div className={styles.formContent}>
-          <Image width={156} height={38} src="/logo_mindfire-white.jpg" />
+          <Image width={112} height={38} src="/logo_mindfire-white.jpg" />
 
           <ThemeProvider theme={theme}>
             {isAllValid ? (
@@ -111,7 +116,10 @@ Home.getInitialProps = async (context) => {
   const { req, res } = context;
   const session = await getSession({ req });
 
+  // console.log("INIT SESSION", session.accessToken);
+
   if (session && res && session.accessToken) {
+    // if (session && res) {
     res.writeHead(302, {
       Location: "/user/profile",
     });

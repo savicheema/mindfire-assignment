@@ -1,8 +1,13 @@
 import React from "react";
 import styles from "./profile-form.module.css";
+import homeStyles from "../styles/Home.module.css";
+
 import { Button } from "@material-ui/core";
 
 import { updateData } from "../utils/firebase";
+
+import SweetAlert from 'react-bootstrap-sweetalert';
+
 
 import {
   ProfilePic,
@@ -13,6 +18,8 @@ import {
 class ProfileForm extends React.Component<ProfileFormProps, ProfileFormState> {
   render() {
     const { profile } = this.props;
+
+    const { isSuccess } = this.state;
 
     return (
       <form className={styles.profileForm}>
@@ -32,13 +39,16 @@ class ProfileForm extends React.Component<ProfileFormProps, ProfileFormState> {
                   </Button>
 
           <Button
-            variant="contained"
             color="secondary"
-            className={styles.buttonFont}
+            className={homeStyles.secondaryButton}
           >
             Cancel
                   </Button>
         </div>
+
+        {isSuccess && <SweetAlert success title="Success!" onConfirm={this.onConfirm} onCancel={this.onCancel}>
+          Your personal and account details have been updated.
+        </SweetAlert>}
       </form>
     );
   }
@@ -46,20 +56,37 @@ class ProfileForm extends React.Component<ProfileFormProps, ProfileFormState> {
   private accountDetailFormRef = React.createRef<AccountDetailsForm>();
   constructor(props: ProfileFormProps) {
     super(props)
+
+    let isSuccess = false;
+    this.state = { isSuccess };
   }
 
   submit = async () => {
     const { personalFormValid, personalData } = await this.personalDetailFormRef.current.validateAllInputs();
-    // const { accountFormValid, accountData } = await this.accountDetailFormRef.current.validateAllInputs();
+    const { accountFormValid, accountData } = await this.accountDetailFormRef.current.validateAllInputs();
 
     const { profile } = this.props;
-    if (personalFormValid) updateData(profile.email, { ...profile, ...personalData })
+    if (personalFormValid && accountFormValid) {
+      this.setState({ isSuccess: true }, () => {
+        updateData(profile.email, { ...profile, ...personalData, ...accountData });
+      })
+    }
+  }
+
+  onConfirm = () => {
+    this.setState({ isSuccess: false });
+  }
+
+  onCancel = () => {
+    this.setState({ isSuccess: false });
   }
 }
 
 type ProfileFormProps = {
   profile: any
 };
-type ProfileFormState = {};
+type ProfileFormState = {
+  isSuccess: boolean
+};
 
 export default ProfileForm;

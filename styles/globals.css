@@ -21,9 +21,19 @@ main {
   max-width: 480px;
 }
 
-svg.fa-user, svg.fa-envelope {
+svg.fa-user,
+svg.fa-envelope {
   width: 20px;
   position: relative;
   top: 8px;
   margin-right: 8px;
+}
+
+:root {
+  --primary-gradient: hsla(255, 76.6%, 10%, 0.34);
+  --primary-color: hsl(225, 55%, 5%);
+
+  --primary-move-gradient: hsla(0, 0%, 100%, 0);
+  --primary-move: hsl(10.2, 75.5%, 45.4%);
+  /* hsl(226.1,76.6%,58%) */
 }

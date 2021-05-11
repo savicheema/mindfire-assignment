@@ -13,26 +13,10 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThumbUp } from "@material-ui/icons";
 
+import { theme } from "../utils";
+
 import { providers, signIn, getSession, csrfToken, signOut } from "next-auth/client";
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            light: "hsla(151,57%,60.8%,1)",
-            main: "hsla(151,57%,50.8%,1)",
-            dark: "hsla(151,57%,40.8%,1)",
-            contrastText: "#ffffff",
-
-        },
-        secondary: {
-            light: "#ff7961",
-            main: "#f44336",
-            dark: "#ba000d",
-            contrastText: "#000",
-        },
-    },
-
-});
+import { Button } from '@material-ui/core';
 
 const SignIn = ({ providers, csrfToken }) => {
     let [isAllValid, setValid] = useState(false);
@@ -49,7 +33,7 @@ const SignIn = ({ providers, csrfToken }) => {
 
         const list = signInList.concat(
             [
-                <button key={0} onClick={() => { signIn("google", { callbackUrl: `${window.location.host}/user/profile` }) }}>Sign in Google</button>
+                <Button className={styles.secondaryButton} color="secondary" size="large" key={1} onClick={() => { signIn("google", { callbackUrl: `${window.location.host}/user/profile` }) }}>Sign in Google</Button>
             ]
         );
 
@@ -75,7 +59,7 @@ const SignIn = ({ providers, csrfToken }) => {
 
         <div className={styles.form}>
             <div className={styles.formContent}>
-                <Image width={156} height={38} src="/logo_mindfire-white.jpg" />
+                <Image width={112} height={38} src="/logo_mindfire-white.jpg" />
 
                 <ThemeProvider theme={theme}>
                     {isAllValid ? (
