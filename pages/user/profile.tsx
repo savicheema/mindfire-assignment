@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./profile.module.css";
+import Link from "next/link";
 
 import ProfileForm from "../../components/ProfileForm";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -33,11 +34,14 @@ const Profile = () => {
 
   console.log("SESSION", session, profile);
 
+  const profileClass = session ? styles.profile : styles.logIn;
+
   return (
-    <div className={styles.profile}>
+    <div className={profileClass}>
       {loading && "...loading"}
       <ThemeProvider theme={theme}>
         {session && <ProfileForm profile={profile} />}
+        {!session && <Link href="/">Click here to log in!</Link>}
       </ThemeProvider>
     </div>
   );

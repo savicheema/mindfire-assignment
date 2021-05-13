@@ -7,8 +7,20 @@
   width: 100vw;
 }
 
+.logIn {
+  height: 100vh;
+  max-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (min-width: 900px) {
   .profile {
     min-height: 100px;
+  }
+
+  .logIn {
+    min-height: 600px;
   }
 }
