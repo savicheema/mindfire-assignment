@@ -20,7 +20,9 @@ const useStyles = makeStyles({
 const ProfilePic = ({ profile }) => {
   if (!profile) return <div className={styles.profilePic}>ProfilePic</div>;
   else {
-    const [profilePic, setProfilePic] = useState(profile.image);
+    const [profilePic, setProfilePic] = useState(
+      profile.filename || profile.image
+    );
 
     const uploadPhoto = async (e) => {
       const file = e.target.files[0];
