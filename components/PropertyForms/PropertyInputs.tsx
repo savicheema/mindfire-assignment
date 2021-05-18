@@ -24,14 +24,14 @@ class PropertyInputs extends React.Component<PropertyInputsProps, PropertyInputs
                         ref={this.propertyNameRef}
                         regex={/^[a-zA-Z]([-']?[a-z]+)*( [a-zA-Z]([-']?[a-z]+)*)+$/}
                         placeholder="John Doe"
-                        value={`${profile.userProperty.name}`}
+                        value={profile.userProperty && `${profile.userProperty.name}`}
                     />
                     <FormInput
                         name="address"
                         ref={this.addressRef}
                         placeholder="433 Airport Blvd, Ste 106, Burl.."
                         regex={/.*/}
-                        value={`${profile.userProperty.address}`}
+                        value={profile.userProperty && `${profile.userProperty.address}`}
                     />
                     <Button color="primary" size="small" variant="contained" onClick={this.savePropertyDetails}>Save</Button>
                 </div>

@@ -19,7 +19,7 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
 
         return (<div className={styles.imagesInput} ref={this.imageGalleryRef}>
             <h2>Property Photos</h2>
-            {
+            {property.userProperty && property.userProperty.images &&
                 !!property.userProperty.images.length && <div className={styles.attachedPhotos}>
                     {property.userProperty.images.map((image, index) => {
                         return <Thumbnail image={image} key={index} />
