@@ -87,7 +87,7 @@ const ProfilePic = ({ profile }) => {
             onChange={uploadPhoto}
             type="file"
             accept="image/png, image/jpeg"
-            className={formSyles.hiddenInput}
+            className={formStyles.hiddenInput}
             ref={inputRef}
           />
           <CustomIconButton
