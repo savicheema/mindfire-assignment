@@ -24,7 +24,12 @@ class UploadImageThumb extends React.Component {
           >
             Upload
           </Button>
-          <Button color="secondary" size="small" className={styles.button}>
+          <Button
+            color="secondary"
+            size="small"
+            className={styles.button}
+            onClick={this.remove}
+          >
             Remove
           </Button>
         </div>
@@ -97,6 +102,13 @@ class UploadImageThumb extends React.Component {
       .then((data) => {
         console.log("PHOTO RESOURCE", data);
       });
+  };
+
+  remove = () => {
+    this.setState({ file: undefined }, () => {
+      const { removeFile, filename } = this.props;
+      removeFile(filename);
+    });
   };
 }
 

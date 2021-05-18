@@ -33,7 +33,7 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
                     onClick={() => { this.inputRef.current.click() }}>Add Photo</Button>
             </div>
             {!!thumbRefs.length && thumbRefs.map((thumb, index) => {
-                return <UploadImageThumb key={index} ref={thumb} profile={property} />
+                return <UploadImageThumb key={thumb.key} ref={thumb.ref} profile={property} filename={thumb.key} removeFile={this.removeFile} />
             })}
 
         </div>);
@@ -51,15 +51,33 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
 
     onFileSelect = async (e) => {
 
-        const thumbRef = React.createRef<UploadImageThumb>();
+        const thumbRef = { ref: React.createRef<UploadImageThumb>(), key: encodeURIComponent(e.target.files[0].name) };
 
         const { thumbRefs } = this.state;
 
         thumbRefs.push(thumbRef);
 
         this.setState({ thumbRefs }, () => {
-            thumbRef.current.setFile(e.target.files[0]);
+            thumbRef.ref.current.setFile(e.target.files[0]);
         });
+
+    }
+
+    removeFile = (filename) => {
+        const { thumbRefs } = this.state;
+
+        const thumb = thumbRefs.find((thumb) => {
+            return thumb.key === filename;
+        })
+
+        const index = thumbRefs.indexOf(thumb);
+
+        thumbRefs.splice(index, 1);
+
+        this.setState({ thumbRefs });
+    }
+
+    findFileName = () => {
 
     }
 }
