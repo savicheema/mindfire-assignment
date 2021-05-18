@@ -13,5 +13,13 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-direction: column;
   margin: 24px 0;
+}
+
+.thumbArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
 }
