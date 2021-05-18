@@ -40,7 +40,7 @@ export default function Home({ providers }) {
 
     const list = signInList.concat(
       [
-        <Button size="large" color="secondary" startIcon={<Image width="16" height="16" src="/search.png" alt="social google" />} className={styles.secondaryButton} key={1} onClick={() => { signIn("google", { callbackUrl }) }}>Sign in Google</Button>
+        <Button size="large" color="secondary" startIcon={<Image width="16" height="16" src="/search.png" alt="social google" />} className={styles.secondaryButton} key={1} onClick={() => { signIn("google", { callbackUrl }) }}>Sign up Google</Button>
       ]
     );
 
