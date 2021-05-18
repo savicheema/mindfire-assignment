@@ -17,7 +17,10 @@ class PropertyInputs extends React.Component<PropertyInputsProps, PropertyInputs
         if (!profile) return "";
         return (
             <div className={styles.propertyInputs}>
-                <h2>Property Details</h2>
+                <div className={styles.propertyHeader}>
+                    <h2>Property Details</h2>
+                    <Button color="secondary" onClick={() => { window.location.href = '/user/profile'; }}>Go Back</Button>
+                </div>
                 <div className={formStyles.formDiv}>
                     <FormInput
                         name="full name"

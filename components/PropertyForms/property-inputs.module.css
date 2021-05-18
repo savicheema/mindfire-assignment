@@ -1,0 +1,8 @@
+.propertyHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.propertyInputs {
+  margin: 24px 0;
+}
