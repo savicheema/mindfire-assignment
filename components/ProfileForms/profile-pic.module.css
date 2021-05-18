@@ -18,10 +18,6 @@
   align-items: center;
 }
 
-.hiddenInput {
-  display: none;
-}
-
 .iconButton {
   position: absolute;
   bottom: 0;

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./personal-details.module.css";
-import formStyles from "./form-style.module.css"
+import formStyles from "../form-style.module.css"
 
 import FormInput, { FormInputHOC } from "../utils/FormInput";
 

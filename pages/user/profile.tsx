@@ -32,8 +32,6 @@ const Profile = () => {
 
   }, [session])
 
-  console.log("SESSION", session, profile);
-
   const profileClass = session ? styles.profile : styles.logIn;
 
   return (

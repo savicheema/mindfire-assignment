@@ -2,6 +2,16 @@
   display: grid;
   grid-template-columns: 100%;
 }
+
+.formButton {
+  width: 100%;
+  margin: 12px 0 !important;
+}
+
+.hiddenInput {
+  display: none;
+}
+
 @media screen and (min-width: 900px) {
   .formDiv {
     grid-template-columns: 49% 49%;

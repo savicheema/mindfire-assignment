@@ -10,6 +10,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { signOut } from "next-auth/client";
 import { updateData } from "../../utils/firebase";
 
+import formStyles from "../form-style.module.css";
+
 const useStyles = makeStyles({
   root: {
     width: "28px",
@@ -85,7 +87,7 @@ const ProfilePic = ({ profile }) => {
             onChange={uploadPhoto}
             type="file"
             accept="image/png, image/jpeg"
-            className={styles.hiddenInput}
+            className={formSyles.hiddenInput}
             ref={inputRef}
           />
           <CustomIconButton

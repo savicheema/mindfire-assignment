@@ -1,0 +1,26 @@
+.property {
+  display: flex;
+  flex-direction: column;
+  min-height: 900px;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.logIn {
+  height: 100vh;
+  max-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 900px) {
+  .property {
+    min-height: 100px;
+  }
+
+  .logIn {
+    min-height: 600px;
+  }
+}

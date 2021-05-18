@@ -35,20 +35,20 @@ class ProfileForm extends React.Component<ProfileFormProps, ProfileFormState> {
             className={styles.buttonFont}
             onClick={this.submit}
           >
-            Save
-                  </Button>
+            Next
+          </Button>
 
           <Button
             color="secondary"
             className={homeStyles.secondaryButton}
           >
             Cancel
-                  </Button>
+          </Button>
         </div>
 
-        {isSuccess && <SweetAlert success title="Success!" onConfirm={this.onConfirm} onCancel={this.onCancel}>
+        {/* isSuccess && <SweetAlert success title="Success!" onConfirm={this.onConfirm} onCancel={this.onCancel}>
           Your personal and account details have been updated.
-        </SweetAlert>}
+    </SweetAlert> */}
       </form>
     );
   }
@@ -68,7 +68,9 @@ class ProfileForm extends React.Component<ProfileFormProps, ProfileFormState> {
     const { profile } = this.props;
     if (personalFormValid && accountFormValid) {
       this.setState({ isSuccess: true }, () => {
-        updateData(profile.email, { ...profile, ...personalData, ...accountData });
+        updateData(profile.email, { ...profile, ...personalData, ...accountData }).then(() => {
+          window.location.href = '/user/property';
+        });
       })
     }
   }
