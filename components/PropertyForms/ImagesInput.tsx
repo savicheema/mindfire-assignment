@@ -33,6 +33,7 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
                         className={formStyles.hiddenInput}
                         accept="image/png, image/jpeg"
                         ref={this.inputRef}
+                        multiple
                     />
                 </form>
 
@@ -61,16 +62,22 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
     }
 
     onFileSelect = async (e) => {
-
-        const thumbRef = { ref: React.createRef<UploadImageThumb>(), key: encodeURIComponent(e.target.files[0].name) };
-
         const { thumbRefs } = this.state;
 
-        thumbRefs.push(thumbRef);
+        Promise.all([...e.target.files].map((file) => {
+            return { ref: React.createRef<UploadImageThumb>(), key: encodeURIComponent(file.name), file };
+        })).then((thumbRefs: any) => {
 
-        this.setState({ thumbRefs }, () => {
-            thumbRef.ref.current.setFile(e.target.files[0]);
-        });
+            console.log("THUMB REFS", thumbRefs);
+            this.setState({ thumbRefs }, () => {
+                const { thumbRefs } = this.state;
+                thumbRefs.forEach((thumbRef) => thumbRef.ref.current.setFile(thumbRef.file));
+            });
+        })
+
+
+
+
 
     }
 
