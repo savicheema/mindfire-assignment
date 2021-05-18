@@ -1,13 +1,12 @@
 import React from "react";
-import styles from "./upload-image-thumb.module.css";
+import styles from "./upload-video-thumb.module.css";
 import uploadStyles from "./upload.module.css";
 
+import { styled } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import { updateData } from "../../utils/firebase";
-import { styled } from "@material-ui/core/styles";
-
-import LinearProgress from "@material-ui/core/LinearProgress";
 
 const StyledProgress = styled(LinearProgress)({
   height: "4px",
@@ -15,26 +14,26 @@ const StyledProgress = styled(LinearProgress)({
   margin: "4px 0",
 });
 
-class UploadImageThumb extends React.Component {
+class UploadVideoThumb extends React.Component {
   render() {
-    const { profile } = this.props;
-
+    const { profile, filename, removeFile } = this.props;
     const { isFileSet, isUploading } = this.state;
 
-    console.log("UPLOAD THUMB", profile);
-
     return (
-      <div className={styles.uploadImageThumb}>
+      <div className={styles.uploadVideoThumb}>
         {(!isFileSet || isUploading) && <StyledProgress />}
+
         <div className={uploadStyles.thumbArea}>
-          <canvas height="150" width="200" ref={this.canvasRef}></canvas>
+          <video width="200" height="150" ref={this.videoRef}>
+            <source ref={this.videoSourceRef} />
+          </video>
           <div className={uploadStyles.uploadButtons}>
             <Button
               color="primary"
               variant="contained"
               size="small"
               className={uploadStyles.button}
-              onClick={this.uploadPhoto}
+              onClick={this.uploadVideo}
             >
               Upload
             </Button>
@@ -56,27 +55,15 @@ class UploadImageThumb extends React.Component {
     super(props);
 
     this.state = {
-      file: undefined,
       isFileSet: false,
       isUploading: false,
     };
 
-    this.canvasRef = React.createRef();
-    this.uploadRef = React.createRef();
-    this.removeRef = React.createRef();
+    this.videoSourceRef = React.createRef();
+    this.videoRef = React.createRef();
   }
 
-  setFile = (file) => {
-    this.setState({ file }, async () => {
-      const bitmapImage = await createImageBitmap(file);
-      const ctx = this.canvasRef.current.getContext("2d");
-      ctx.drawImage(bitmapImage, 0, 0);
-
-      this.setState({ isFileSet: true });
-    });
-  };
-
-  uploadPhoto = () => {
+  uploadVideo = () => {
     const { file } = this.state;
     if (!file) {
       console.error("NO FILE TO UPLOAD");
@@ -97,7 +84,7 @@ class UploadImageThumb extends React.Component {
 
       const { profile } = this.props;
 
-      console.log("UPLOAD PROPERTY IMAGE PROFILE", profile);
+      console.log("UPLOAD PROPERTY VIDEO PROFILE", profile);
 
       const upload = await fetch(url, {
         method: "POST",
@@ -107,23 +94,23 @@ class UploadImageThumb extends React.Component {
       if (upload.ok) {
         console.log("Uploaded successfully!", upload, url);
 
-        if (profile.userProperty && profile.userProperty.images) {
-          profile.userProperty.images.push(propertyFilename);
+        if (profile.userProperty && profile.userProperty.videos) {
+          profile.userProperty.videos.push(propertyFilename);
           updateData(profile.email, { ...profile });
         } else if (!profile.userProperty) {
           const property = {
-            images: [],
+            videos: [],
           };
 
-          property.images.push(propertyFilename);
+          property.videos.push(propertyFilename);
 
           profile.userProperty = property;
           updateData(profile.email, { ...profile });
-        } else if (!profile.userProperty.images) {
-          const images = [];
-          images.push(propertyFilename);
+        } else if (!profile.userProperty.videos) {
+          const videos = [];
+          videos.push(propertyFilename);
 
-          profile.userProperty.images = images;
+          profile.userProperty.videos = videos;
 
           updateData(profile.email, { ...profile });
         } else {
@@ -138,15 +125,14 @@ class UploadImageThumb extends React.Component {
     });
   };
 
-  getPhoto = (filename) => {
-    fetch(`/api/resource/s3?file=${filename}`)
-      .then((response) => {
-        console.log("RESPONSE", response.text);
-        return response.text();
-      })
-      .then((data) => {
-        console.log("PHOTO RESOURCE", data);
+  setFile = (file) => {
+    this.setState({ file }, async () => {
+      const videoUrl = URL.createObjectURL(file);
+      this.videoSourceRef.current.src = videoUrl;
+      this.setState({ isFileSet: true }, () => {
+        this.videoRef.current.load();
       });
+    });
   };
 
   remove = () => {
@@ -156,5 +142,4 @@ class UploadImageThumb extends React.Component {
     });
   };
 }
-
-export default UploadImageThumb;
+export default UploadVideoThumb;

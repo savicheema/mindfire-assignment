@@ -10,7 +10,7 @@ const PropertyForm = ({ profile }) => {
     return <div className={styles.propertyForm}>
         <PropertyInputs profile={profile} />
         <ImagesInput property={profile} />
-        <VideosInput />
+        <VideosInput property={profile} />
     </div>
 }
 export default PropertyForm;
