@@ -105,7 +105,29 @@ class UploadImageThumb extends React.Component {
 
       if (upload.ok) {
         console.log("Uploaded successfully!", upload, url);
-        updateData(profile.email, { ...profile, propertyFilename });
+
+        if (profile.userProperty && profile.userProperty.images) {
+          profile.userProperty.images.push(propertyFilename);
+          updateData(profile.email, { ...profile });
+        } else if (!profile.userProperty) {
+          const property = {
+            images: [],
+          };
+
+          property.images.push(propertyFilename);
+
+          profile.userProperty = property;
+          updateData(profile.email, { ...profile });
+        } else if (!profile.userProperty.images) {
+          const images = [];
+          images.push(propertyFilename);
+
+          profile.userProperty.images = images;
+
+          updateData(profile.email, { ...profile });
+        } else {
+          console.error("Don't know what to upload");
+        }
         this.getPhoto(propertyFilename);
       } else {
         console.error("Upload failed.");

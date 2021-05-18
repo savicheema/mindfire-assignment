@@ -5,7 +5,7 @@ import formStyles from "../form-style.module.css"
 
 import { Button } from "@material-ui/core";
 
-import { UploadImageThumb } from "../utils";
+import { UploadImageThumb, Thumbnail } from "../utils";
 
 class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
     render() {
@@ -15,8 +15,17 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
 
         console.log("IMAGE INPUT PROFILE", property)
 
+        if (!property) return "";
+
         return (<div className={styles.imagesInput} ref={this.imageGalleryRef}>
             <h2>Property Photos</h2>
+            {
+                !!property.userProperty.images.length && <div className={styles.attachedPhotos}>
+                    {property.userProperty.images.map((image, index) => {
+                        return <Thumbnail image={image} key={index} />
+                    })}
+                </div>
+            }
             <div className={styles.formDiv}>
                 <form>
                     <input type="file"
@@ -32,9 +41,11 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
                     className={formStyles.formButton}
                     onClick={() => { this.inputRef.current.click() }}>Add Photo</Button>
             </div>
-            {!!thumbRefs.length && thumbRefs.map((thumb, index) => {
-                return <UploadImageThumb key={thumb.key} ref={thumb.ref} profile={property} filename={thumb.key} removeFile={this.removeFile} />
-            })}
+            {!!thumbRefs.length && <div className={styles.uploadItems}>
+                {thumbRefs.map((thumb, index) => {
+                    return <UploadImageThumb key={thumb.key} ref={thumb.ref} profile={property} filename={thumb.key} removeFile={this.removeFile} />
+                })}
+            </div>}
 
         </div>);
     }

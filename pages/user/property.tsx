@@ -18,7 +18,10 @@ const Property = () => {
     const [profile, setProfile] = useState();
 
     useEffect(() => {
+        getProfile();
+    }, [session])
 
+    const getProfile = () => {
         if (session) {
 
             getData(session.user.email).then((data) => {
@@ -29,8 +32,7 @@ const Property = () => {
             })
 
         }
-
-    }, [session])
+    }
 
     return (
         <div className={styles.property}>

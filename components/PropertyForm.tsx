@@ -8,7 +8,7 @@ const PropertyForm = ({ profile }) => {
     console.log("PROPERTY FORM", profile)
 
     return <div className={styles.propertyForm}>
-        <PropertyInputs property={profile} />
+        <PropertyInputs profile={profile} />
         <ImagesInput property={profile} />
         <VideosInput />
     </div>

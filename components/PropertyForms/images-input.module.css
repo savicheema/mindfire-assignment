@@ -1,0 +1,21 @@
+.attachedPhotos {
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.uploadItems {
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+@media screen and (min-width: 900px) {
+  .attachedPhotos {
+    grid-template-columns: 49% 49%;
+    grid-gap: 2%;
+  }
+
+  .uploadItems {
+    grid-template-columns: 49% 49%;
+    grid-gap: 2%;
+  }
+}
