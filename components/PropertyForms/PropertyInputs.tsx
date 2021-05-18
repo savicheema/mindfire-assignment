@@ -23,10 +23,10 @@ class PropertyInputs extends React.Component<PropertyInputsProps, PropertyInputs
                 </div>
                 <div className={formStyles.formDiv}>
                     <FormInput
-                        name="full name"
+                        name="property name"
                         ref={this.propertyNameRef}
                         regex={/^[a-zA-Z]([-']?[a-z]+)*( [a-zA-Z]([-']?[a-z]+)*)+$/}
-                        placeholder="John Doe"
+                        placeholder="Home"
                         value={profile.userProperty && `${profile.userProperty.name}`}
                     />
                     <FormInput
