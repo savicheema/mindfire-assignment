@@ -66,10 +66,10 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
 
         Promise.all([...e.target.files].map((file) => {
             return { ref: React.createRef<UploadImageThumb>(), key: encodeURIComponent(file.name), file };
-        })).then((thumbRefs: any) => {
+        })).then((newRefs: any) => {
 
             console.log("THUMB REFS", thumbRefs);
-            this.setState({ thumbRefs }, () => {
+            this.setState({ thumbRefs: thumbRefs.concat(newRefs) }, () => {
                 const { thumbRefs } = this.state;
                 thumbRefs.forEach((thumbRef) => thumbRef.ref.current.setFile(thumbRef.file));
             });
@@ -104,7 +104,7 @@ type ImagesInputProps = {
     property: any
 };
 type ImagesInputState = {
-    thumbRefs: [any?]
+    thumbRefs: any[]
 };
 
 export default ImagesInput;
