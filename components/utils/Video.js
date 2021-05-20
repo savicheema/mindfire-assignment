@@ -25,7 +25,7 @@ const Video = ({ filename }) => {
 
   return (
     <div className={styles.thumbnail}>
-      <video height="150" width="200">
+      <video height="150" width="200" controls>
         <source src={video} />
       </video>
     </div>

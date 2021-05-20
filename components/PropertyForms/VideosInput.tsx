@@ -43,7 +43,10 @@ class VideosInput extends React.Component<VideosInputProps, VideosInputState> {
                         className={homeStyles.secondaryButton}
                         onClick={() => { this.inputRef.current.click() }}>Add Video</Button>
                 </div>
-
+                {!!thumbRefs.length && <div className={styles.uploadVideoHeader}>
+                    <h3>Videos to be uploaded</h3>
+                    <button onClick={this.uploadAll}>Upload all</button>
+                </div>}
                 {!!thumbRefs.length && <div className={styles.uploadItems}>
                     {thumbRefs.map((thumb, index) => {
                         return <UploadVideoThumb key={thumb.key} ref={thumb.ref} profile={property} filename={thumb.key} removeFile={this.removeFile} />
@@ -90,6 +93,14 @@ class VideosInput extends React.Component<VideosInputProps, VideosInputState> {
         thumbRefs.splice(index, 1);
 
         this.setState({ thumbRefs });
+    }
+
+    uploadAll = () => {
+        const { thumbRefs } = this.state;
+
+        thumbRefs.forEach((thumbRef) => {
+            thumbRef.ref.current.uploadVideo();
+        })
     }
 
 

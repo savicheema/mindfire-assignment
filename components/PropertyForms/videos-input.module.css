@@ -8,6 +8,15 @@
   grid-template-columns: 100%;
 }
 
+.uploadVideoHeader {
+  display: flex;
+  justify-content: space-between;
+
+  color: rgb(145, 145, 145);
+  height: 5vh;
+  align-items: center;
+}
+
 @media screen and (min-width: 900px) {
   .attachedVideos {
     grid-template-columns: 49% 49%;
