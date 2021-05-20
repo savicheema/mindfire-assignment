@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './images-input.module.css';
 
 import formStyles from "../form-style.module.css"
+import homeStyles from "../../styles/Home.module.css";
 
 import { Button } from "@material-ui/core";
 
@@ -39,7 +40,7 @@ class ImagesInput extends React.Component<ImagesInputProps, ImagesInputState> {
 
                 <Button
                     color="secondary"
-                    className={formStyles.formButton}
+                    className={homeStyles.secondaryButton}
                     onClick={() => { this.inputRef.current.click() }}>Add Photo</Button>
             </div>
             {!!thumbRefs.length && <div className={styles.uploadItems}>

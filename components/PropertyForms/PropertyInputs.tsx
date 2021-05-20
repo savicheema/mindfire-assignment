@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './property-inputs.module.css';
 
 import formStyles from "../form-style.module.css"
+import homeStyles from "../../styles/Home.module.css";
 
 import FormInput, { FormInputHOC } from "../utils/FormInput";
 
@@ -36,7 +37,7 @@ class PropertyInputs extends React.Component<PropertyInputsProps, PropertyInputs
                         regex={/.*/}
                         value={profile.userProperty && `${profile.userProperty.address}`}
                     />
-                    <Button color="primary" size="small" variant="contained" onClick={this.savePropertyDetails}>Save</Button>
+                    <Button color="primary" size="small" variant="contained" onClick={this.savePropertyDetails} className={homeStyles.primaryButton}>Save</Button>
                 </div>
             </div>
         );

@@ -32,7 +32,7 @@ class ProfileForm extends React.Component<ProfileFormProps, ProfileFormState> {
           <Button
             variant="contained"
             color="primary"
-            className={styles.buttonFont}
+            className={homeStyles.primaryButton}
             onClick={this.submit}
           >
             Next

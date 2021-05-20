@@ -69,6 +69,13 @@
 .secondaryButton {
   min-height: 28px;
   box-shadow: 1px 1px #ddd, -1px -1px #ddd;
+  min-width: 380px !important;
+  margin: 0 2px !important;
+}
+
+.primaryButton {
+  min-width: 380px !important;
+  margin: 0 2px !important;
 }
 
 @media (max-width: 900px) {
@@ -81,5 +88,14 @@
 
   .secondaryButton {
     width: 100%;
+    max-width: 380px !important;
+    min-width: 0 !important;
+    margin: 4px 0 !important;
+  }
+
+  .primaryButton {
+    width: 100%;
+    min-width: 0 !important;
+    margin: 4px 0 !important;
   }
 }
