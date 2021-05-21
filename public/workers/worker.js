@@ -93,7 +93,9 @@ const uploadVideo = ({ file, profile }) => {
             // }
           } else {
             console.error("Upload failed.");
-            postMessage("UPLOAD ERROR!");
+            postMessage(
+              `UPLOAD ERROR: ${upload.status} & ${upload.statusText}`
+            );
           }
         })
         .catch((err) => {
