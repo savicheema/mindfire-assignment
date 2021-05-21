@@ -15,6 +15,12 @@
   color: rgb(145, 145, 145);
   height: 5vh;
   align-items: center;
+  margin: 16px 0;
+}
+
+.videosUploadButton {
+  max-height: 24px;
+  font-size: 12px !important;
 }
 
 @media screen and (min-width: 900px) {

@@ -14,6 +14,7 @@ const style = {
     maxWidth: "420px",
     height: "7.7vh",
     margin: "12px 0",
+    minHeight: "56px",
 
     '& label': {
       fontSize: "18px",

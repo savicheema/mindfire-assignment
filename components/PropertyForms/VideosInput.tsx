@@ -5,15 +5,22 @@ import formStyles from "../form-style.module.css"
 import homeStyles from "../../styles/Home.module.css";
 
 import { Button } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { styled } from "@material-ui/core/styles";
 
 import { UploadVideoThumb, Video } from "../utils";
 
+const StyledProgress = styled(LinearProgress)({
+    height: "4px",
+    width: "100%",
+    margin: "4px 0",
+});
 
 class VideosInput extends React.Component<VideosInputProps, VideosInputState> {
     render() {
         const { property } = this.props;
 
-        const { thumbRefs } = this.state;
+        const { thumbRefs, isUploading } = this.state;
 
         if (!property) return null;
 
@@ -44,9 +51,14 @@ class VideosInput extends React.Component<VideosInputProps, VideosInputState> {
                         onClick={() => { this.inputRef.current.click() }}>Add Video</Button>
                 </div>
                 {!!thumbRefs.length && <div className={styles.uploadVideoHeader}>
-                    <h3>Videos to be uploaded</h3>
-                    <button onClick={this.uploadAll}>Upload all</button>
+                    <h4>Videos to be uploaded</h4>
+                    <Button color="secondary" variant="outlined" className={styles.videosUploadButton} onClick={this.uploadAll} >Upload all</Button>
                 </div>}
+                {!!thumbRefs.length && <div className={styles.uploadVideoHeader}>
+                    <h4>Videos to be via worker</h4>
+                    <Button color="secondary" variant="outlined" className={styles.videosUploadButton} onClick={this.uploadAllWorker}>Upload all worker</Button>
+                </div>}
+                {!!thumbRefs.length && <div>{isUploading && <StyledProgress />}</div>}
                 {!!thumbRefs.length && <div className={styles.uploadItems}>
                     {thumbRefs.map((thumb, index) => {
                         return <UploadVideoThumb key={thumb.key} ref={thumb.ref} profile={property} filename={thumb.key} removeFile={this.removeFile} />
@@ -57,13 +69,29 @@ class VideosInput extends React.Component<VideosInputProps, VideosInputState> {
     }
 
     private inputRef = React.createRef<HTMLInputElement>();
+    private worker = undefined;
 
     constructor(props: VideosInputProps) {
         super(props)
 
+
         this.state = {
-            thumbRefs: []
+            thumbRefs: [],
+            isUploading: false
         }
+
+        this.worker = new Worker('/workers/allworker.js');
+    }
+
+    componentDidMount() {
+        this.worker.onmessage = (evt) => {
+            this.setState({ isUploading: false }, () => {
+                alert(`WebWorker Response => ${evt.data}`);
+            })
+        }
+
+        // this.worker.postMessage(1000);
+
     }
 
     onFileSelect = async (e) => {
@@ -103,6 +131,17 @@ class VideosInput extends React.Component<VideosInputProps, VideosInputState> {
         })
     }
 
+    uploadAllWorker = () => {
+
+        const { thumbRefs } = this.state;
+        console.log("WORKER", this.worker)
+
+
+        this.setState({ isUploading: true }, () => {
+            const files = thumbRefs.map((ref) => ref.file);
+            this.worker.postMessage({ files })
+        })
+    }
 
 }
 
@@ -111,7 +150,8 @@ type VideosInputProps = {
     property: any
 };
 type VideosInputState = {
-    thumbRefs: any[]
+    thumbRefs: any[],
+    isUploading: boolean
 };
 
 export default VideosInput;
