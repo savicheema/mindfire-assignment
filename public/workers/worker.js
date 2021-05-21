@@ -96,8 +96,8 @@ const uploadVideo = ({ file, profile }) => {
             postMessage("UPLOAD ERROR!");
           }
         })
-        .catch(() => {
-          postMessage("UPLOAD NETWORK ERROR");
+        .catch((err) => {
+          postMessage(`UPLOAD NETWORK ERROR: ${err}`);
         });
     })
     .catch(() => {
