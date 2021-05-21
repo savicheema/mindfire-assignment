@@ -68,32 +68,40 @@ const uploadVideo = ({ file, profile }) => {
       fetch(url, {
         method: "POST",
         body: formData,
-      }).then((upload) => {
-        if (upload.ok) {
-          postMessage("uploaded!");
+      })
+        .then((upload) => {
+          if (upload.ok) {
+            postMessage("uploaded!");
 
-          // if (profile.userProperty && profile.userProperty.videos) {
-          //   profile.userProperty.videos.push(propertyFilename);
-          //   updateData(profile.email, { ...profile });
-          // } else if (!profile.userProperty) {
-          //   const property = {
-          //     videos: [],
-          //   };
-          //   property.videos.push(propertyFilename);
-          //   profile.userProperty = property;
-          //   updateData(profile.email, { ...profile });
-          // } else if (!profile.userProperty.videos) {
-          //   const videos = [];
-          //   videos.push(propertyFilename);
-          //   profile.userProperty.videos = videos;
-          //   updateData(profile.email, { ...profile });
-          // } else {
-          //   console.error("Don't know what to upload");
-          // }
-        } else {
-          console.error("Upload failed.");
-        }
-      });
+            // if (profile.userProperty && profile.userProperty.videos) {
+            //   profile.userProperty.videos.push(propertyFilename);
+            //   updateData(profile.email, { ...profile });
+            // } else if (!profile.userProperty) {
+            //   const property = {
+            //     videos: [],
+            //   };
+            //   property.videos.push(propertyFilename);
+            //   profile.userProperty = property;
+            //   updateData(profile.email, { ...profile });
+            // } else if (!profile.userProperty.videos) {
+            //   const videos = [];
+            //   videos.push(propertyFilename);
+            //   profile.userProperty.videos = videos;
+            //   updateData(profile.email, { ...profile });
+            // } else {
+            //   console.error("Don't know what to upload");
+            // }
+          } else {
+            console.error("Upload failed.");
+            postMessage("UPLOAD ERROR!");
+          }
+        })
+        .catch(() => {
+          postMessage("UPLOAD NETWORK ERROR");
+        });
+    })
+    .catch(() => {
+      postMessage("API Error!");
     });
 };
 
