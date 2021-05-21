@@ -16,7 +16,7 @@ const StyledProgress = styled(LinearProgress)({
 
 class UploadVideoThumb extends React.Component {
   render() {
-    const { profile, filename, removeFile } = this.props;
+    // const { profile, filename, removeFile } = this.props;
     const { isFileSet, isUploading } = this.state;
 
     return (
@@ -37,6 +37,16 @@ class UploadVideoThumb extends React.Component {
             >
               Upload
             </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              className={uploadStyles.button}
+              onClick={this.uploadVideoOnWorker}
+            >
+              Worker Upload
+            </Button>
+
             <Button
               color="secondary"
               size="small"
@@ -61,6 +71,12 @@ class UploadVideoThumb extends React.Component {
 
     this.videoSourceRef = React.createRef();
     this.videoRef = React.createRef();
+
+    this.worker = new Worker("/workers/worker.js");
+  }
+
+  componentDidMount() {
+    this.worker.onmessage = (evt) => alert(`WebWorker Response => ${evt.data}`);
   }
 
   uploadVideo = () => {
@@ -123,6 +139,13 @@ class UploadVideoThumb extends React.Component {
 
       this.setState({ isUploading: false });
     });
+  };
+
+  uploadVideoOnWorker = () => {
+    const { file } = this.state;
+    const { profile } = this.props;
+
+    this.worker.postMessage({ file, profile });
   };
 
   setFile = (file) => {
