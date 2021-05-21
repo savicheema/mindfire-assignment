@@ -76,7 +76,11 @@ class UploadVideoThumb extends React.Component {
   }
 
   componentDidMount() {
-    this.worker.onmessage = (evt) => alert(`WebWorker Response => ${evt.data}`);
+    this.worker.onmessage = (evt) => {
+      this.setState({ isUploading: false }, () => {
+        alert(`WebWorker Response => ${evt.data}`);
+      });
+    };
   }
 
   uploadVideo = () => {
@@ -102,14 +106,13 @@ class UploadVideoThumb extends React.Component {
 
       console.log("UPLOAD PROPERTY VIDEO PROFILE", profile);
 
-      const upload = await fetch(url, {
+      const upload = await fetch(`${url}`, {
         method: "POST",
         body: formData,
       });
+      console.log("Uploaded successfully!", upload, url);
 
       if (upload.ok) {
-        console.log("Uploaded successfully!", upload, url);
-
         if (profile.userProperty && profile.userProperty.videos) {
           profile.userProperty.videos.push(propertyFilename);
           updateData(profile.email, { ...profile });
@@ -145,7 +148,9 @@ class UploadVideoThumb extends React.Component {
     const { file } = this.state;
     const { profile } = this.props;
 
-    this.worker.postMessage({ file, profile });
+    this.setState({ isUploading: true }, () => {
+      this.worker.postMessage({ file, profile });
+    });
   };
 
   setFile = (file) => {
