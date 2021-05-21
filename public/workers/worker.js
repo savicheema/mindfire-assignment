@@ -70,6 +70,8 @@ const uploadVideo = ({ file, profile }) => {
         body: formData,
       }).then((upload) => {
         if (upload.ok) {
+          postMessage("uploaded!");
+
           // if (profile.userProperty && profile.userProperty.videos) {
           //   profile.userProperty.videos.push(propertyFilename);
           //   updateData(profile.email, { ...profile });
@@ -96,5 +98,5 @@ const uploadVideo = ({ file, profile }) => {
 };
 
 addEventListener("message", (event) => {
-  postMessage(uploadVideo(event.data));
+  uploadVideo(event.data);
 });
