@@ -59,7 +59,7 @@ const SignIn = ({ providers, csrfToken }) => {
 
         <div className={styles.form}>
             <div className={styles.formContent}>
-                <Image width={112} height={38} src="/logo_mindfire-white.jpg" />
+                <Image width={112} height={44} src="/logo_mindfire-white.jpg" />
 
                 <ThemeProvider theme={theme}>
                     {isAllValid ? (
