@@ -31,9 +31,9 @@ export const useScript = (url, onLoad) => {
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "hsla(225, 55%, 10%, 1)",
-      main: "hsla(225, 55%, 5%, 1)",
-      dark: "hsla(225, 55%, 0%, 1)",
+      light: "hsla(225, 55%, 15%, 1)",
+      main: "hsla(225, 55%, 10%, 1)",
+      dark: "hsla(225, 55%, 5%, 1)",
       contrastText: "#ffffff",
     },
     secondary: {
